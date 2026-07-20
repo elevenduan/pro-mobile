@@ -1,5 +1,5 @@
 import { Button, Form } from "antd-mobile";
-import { ProNumber } from "./components";
+import { ProNumber, ProInput } from "./components";
 import "./App.css";
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
         }
       >
         <ProNumber label="金额" name="money" required extra="元" />
+        <ProInput label="邮箱" name="email" required verify="email" />
       </Form>
     </div>
   );

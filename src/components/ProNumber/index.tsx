@@ -14,7 +14,7 @@ export type ProNumberProps = Pick<FormItemProps, "label" | "required" | "extra" 
 
 export const ProNumber: FC<ProNumberProps> = (props) => {
   const { required, min = 0, max, precision = 2, itemProps, fieldProps, ...rest } = props;
-  const placeholder = `请输入${rest?.messageVariables?.label || rest?.label || ""}`;
+  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
     <Form.Item
@@ -50,7 +50,7 @@ export const ProNumber: FC<ProNumberProps> = (props) => {
         return formatted;
       }}
     >
-      <Input type="text" clearable placeholder={placeholder} {...fieldProps} />
+      <Input type="text" clearable placeholder={`请输入${messageLabel}`} {...fieldProps} />
     </Form.Item>
   );
 };
