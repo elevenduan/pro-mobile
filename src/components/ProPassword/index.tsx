@@ -1,0 +1,29 @@
+import type { FC } from "react";
+import type { FormItemProps, InputProps } from "antd-mobile";
+import type { NamePath } from "../types";
+import { useState } from "react";
+import { Form, Input } from "antd-mobile";
+import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
+
+export type ProPasswordProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+  name: NamePath;
+  itemProps?: FormItemProps;
+  fieldProps?: InputProps;
+};
+
+export const ProPassword: FC<ProPasswordProps> = (props) => {
+  const { required, itemProps, fieldProps, ...rest } = props;
+  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const [visibleEye, setVisibleEye] = useState(false);
+
+  return (
+    <Form.Item
+      extra={<div onClick={() => setVisibleEye(!visibleEye)}>{visibleEye ? <EyeOutline /> : <EyeInvisibleOutline />}</div>}
+      {...rest}
+      {...itemProps}
+      rules={[{ required }, ...(itemProps?.rules || [])]}
+    >
+      <Input type={visibleEye ? "text" : "password"} clearable placeholder={`请输入${messageLabel}`} {...fieldProps} />
+    </Form.Item>
+  );
+};

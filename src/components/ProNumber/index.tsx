@@ -3,7 +3,7 @@ import type { FormItemProps, InputProps } from "antd-mobile";
 import type { NamePath } from "../types";
 import { Form, Input } from "antd-mobile";
 
-export type ProNumberProps = Pick<FormItemProps, "label" | "required" | "extra" | "disabled" | "messageVariables"> & {
+export type ProNumberProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
   name: NamePath;
   min?: number | null; // 允许为 null，表示没有最小值
   max?: number;

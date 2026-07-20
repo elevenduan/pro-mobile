@@ -10,3 +10,4 @@ export * from "./types";
 // conponents
 export * from "./ProNumber";
 export * from "./ProInput";
+export * from "./ProPassword";
