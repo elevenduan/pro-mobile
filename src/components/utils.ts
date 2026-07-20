@@ -111,29 +111,59 @@ export const isUsci = (value: unknown): boolean => {
   return code[17] === characters[(31 - (sum % 31)) % 31];
 };
 
-type PasswordOptions = {
-  minLength?: number;
-  maxLength?: number;
-  alpha?: boolean;
-  ignoreCase?: boolean;
-  number?: boolean;
-  special?: string;
-};
-
 /** 转义将要插入正则字符类的特殊字符。 */
 const escape = (value: string): string => value.replace(/[\\\]^\-]/g, "\\$&");
 
-/** 根据长度、字母、数字和特殊字符规则判断密码是否有效。 */
+type PasswordOptions = { alpha?: boolean; sensitive?: boolean; number?: boolean; special?: string; min?: number; max?: number };
+
+/** 根据字母、数字和特殊字符规则判断密码是否有效。 */
 export const isPassword = (value: unknown, options: PasswordOptions = {}): boolean => {
-  const { minLength = 8, maxLength = 16, alpha = true, ignoreCase = true, number = true, special = SPECIAL_CHARS } = options;
   if (!isString(value)) return false;
+
+  const { alpha = true, sensitive = false, number = true, special = SPECIAL_CHARS, min = 8, max = 16 } = options;
   const escapeChars = escape(special);
-  if (value.length < minLength || value.length > maxLength) return false;
+  if (value.length < min || value.length > max) return false;
   if (!new RegExp(`^[A-Za-z\\d${escapeChars}]*$`).test(value)) return false;
-  if (alpha && ignoreCase && !/[A-Za-z]/.test(value)) return false;
-  if (alpha && !ignoreCase && (!/[A-Z]/.test(value) || !/[a-z]/.test(value))) return false;
-  if (number && !/\d/.test(value)) return false;
-  if (special && !new RegExp(`[${escapeChars}]`).test(value)) return false;
+  if (alpha !== /[A-Za-z]/.test(value)) return false;
+  if (alpha && sensitive && (!/[A-Z]/.test(value) || !/[a-z]/.test(value))) return false;
+  if (number !== /\d/.test(value)) return false;
+  if (Boolean(special) !== new RegExp(`[${escapeChars}]`).test(value)) return false;
 
   return true;
+};
+
+type Mergeable = Record<PropertyKey, unknown> | unknown[];
+
+/** 判断值是否为可递归合并的普通对象。 */
+const isPlainObject = (value: unknown): value is Record<PropertyKey, unknown> => {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+};
+
+/** 深度合并多个对象或数组；数组按下标合并，后续来源会覆盖同名键或同下标的值。 */
+export const merge = <T extends Mergeable>(target: T, ...sources: Mergeable[]): T => {
+  const mergeValue = (current: unknown, next: unknown): unknown => {
+    if (Array.isArray(current) && Array.isArray(next)) {
+      const result = [...current];
+      next.forEach((value, index) => {
+        result[index] = mergeValue(result[index], value);
+      });
+      return result;
+    }
+
+    if (isPlainObject(current) && isPlainObject(next)) {
+      const result: Record<PropertyKey, unknown> = { ...current };
+      Reflect.ownKeys(next).forEach((key) => {
+        result[key] = mergeValue(result[key], next[key]);
+      });
+      return result;
+    }
+
+    if (Array.isArray(next)) return next.map((value) => mergeValue(undefined, value));
+    if (isPlainObject(next)) return mergeValue({}, next);
+    return next;
+  };
+
+  return sources.reduce<T>((result, source) => mergeValue(result, source) as T, mergeValue(undefined, target) as T);
 };

@@ -6,7 +6,7 @@ import { Form, Input } from "antd-mobile";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 
 export type ProPasswordProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
-  name: NamePath;
+  name?: NamePath;
   itemProps?: FormItemProps;
   fieldProps?: InputProps;
 };

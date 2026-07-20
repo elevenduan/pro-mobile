@@ -4,7 +4,7 @@ import type { NamePath } from "../types";
 import { Form, Input } from "antd-mobile";
 
 export type ProNumberProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
-  name: NamePath;
+  name?: NamePath;
   min?: number | null; // 允许为 null，表示没有最小值
   max?: number;
   precision?: number;
