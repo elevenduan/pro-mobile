@@ -12,3 +12,4 @@ export * from "./ProNumber";
 export * from "./ProInput";
 export * from "./ProPassword";
 export * from "./ProPasswordGroup";
+export * from "./ProRadio";

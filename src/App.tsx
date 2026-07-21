@@ -1,9 +1,13 @@
 import { Button, Form } from "antd-mobile";
-import { ProNumber, ProInput, ProPassword, ProPasswordGroup } from "./components";
+import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio } from "./components";
 import "./App.css";
 
 function App() {
   const [form] = Form.useForm();
+  const optionsRadio = [
+    { label: "男", value: "male" },
+    { label: "女", value: "female" },
+  ];
 
   return (
     <div>
@@ -22,6 +26,7 @@ function App() {
         <ProInput label="邮箱" name="email" required verify="email" />
         <ProPassword label="密码" name="password" required />
         <ProPasswordGroup />
+        <ProRadio label="性别" name="gender" required options={optionsRadio} />
       </Form>
     </div>
   );
