@@ -1,36 +1,36 @@
 import type { FC, ReactNode } from "react";
-import type { FormItemProps, RadioProps, SpaceProps } from "antd-mobile";
+import type { FormItemProps, CheckboxProps, SpaceProps } from "antd-mobile";
 import type { NamePath } from "../types";
-import { Form, Radio, Space } from "antd-mobile";
+import { Checkbox, Form, Space } from "antd-mobile";
 
-export type RadioOption = {
+export type CheckboxOption = {
   label: ReactNode;
   value: string | number;
 };
 
-export type ProRadioProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProCheckboxProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
   name?: NamePath;
-  options?: RadioOption[];
+  options?: CheckboxOption[];
   itemProps?: FormItemProps;
-  fieldProps?: RadioProps;
+  fieldProps?: CheckboxProps;
   spaceProps?: SpaceProps;
 };
 
-export const ProRadio: FC<ProRadioProps> = (props) => {
+export const ProCheckbox: FC<ProCheckboxProps> = (props) => {
   const { required, options = [], spaceProps, itemProps, fieldProps, ...rest } = props;
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
     <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(itemProps?.rules || [])]}>
-      <Radio.Group>
+      <Checkbox.Group>
         <Space block wrap {...spaceProps}>
           {options.map((item) => (
-            <Radio key={item.value} value={item.value} {...fieldProps}>
+            <Checkbox key={item.value} value={item.value} {...fieldProps}>
               {item.label}
-            </Radio>
+            </Checkbox>
           ))}
         </Space>
-      </Radio.Group>
+      </Checkbox.Group>
     </Form.Item>
   );
 };
