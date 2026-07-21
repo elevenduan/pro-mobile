@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import type { FormItemProps, TextAreaProps } from "antd-mobile";
-import type { NamePath } from "../types";
+import type { GeneralFormItemKey, NamePath } from "../types";
 import { Form, TextArea } from "antd-mobile";
 
-export type ProTextAreaProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProTextAreaProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   itemProps?: FormItemProps;
   fieldProps?: TextAreaProps;

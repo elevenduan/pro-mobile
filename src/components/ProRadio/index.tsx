@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 import type { FormItemProps, RadioProps, SpaceProps } from "antd-mobile";
-import type { NamePath, OptionValue } from "../types";
+import type { GeneralFormItemKey, NamePath, OptionValue } from "../types";
 import { Form, Radio, Space } from "antd-mobile";
 
 export type RadioOption = {
@@ -9,7 +9,7 @@ export type RadioOption = {
   disabled?: boolean;
 };
 
-export type ProRadioProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProRadioProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   options: RadioOption[];
   itemProps?: FormItemProps;

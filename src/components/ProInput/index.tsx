@@ -1,10 +1,10 @@
 import type { FC } from "react";
 import type { FormItemProps, InputProps } from "antd-mobile";
-import type { NamePath } from "../types";
+import type { GeneralFormItemKey, NamePath } from "../types";
 import { Form, Input } from "antd-mobile";
 import * as utils from "../utils";
 
-export type ProInputProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   verify?: "url" | "email" | "ip" | "ipv4" | "ipv6" | "bankNo" | "idNo" | "mobile" | "usci";
   itemProps?: FormItemProps;

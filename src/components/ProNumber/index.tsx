@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import type { FormItemProps, InputProps } from "antd-mobile";
-import type { NamePath } from "../types";
+import type { GeneralFormItemKey, NamePath } from "../types";
 import { Form, Input } from "antd-mobile";
 
-export type ProNumberProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProNumberProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   min?: number | null; // 允许为 null，表示没有最小值
   max?: number;

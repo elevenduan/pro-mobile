@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import type { FormItemProps, InputProps } from "antd-mobile";
-import type { NamePath } from "../types";
+import type { GeneralFormItemKey, NamePath } from "../types";
 import { useState } from "react";
 import { Form, Input } from "antd-mobile";
 import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 
-export type ProPasswordProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProPasswordProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   itemProps?: FormItemProps;
   fieldProps?: InputProps;

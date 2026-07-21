@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import type { FormItemProps, SelectorProps } from "antd-mobile";
-import type { NamePath, OptionValue } from "../types";
+import type { GeneralFormItemKey, NamePath, OptionValue } from "../types";
 import { Form, Selector } from "antd-mobile";
 
-export type ProSelectorProps = Pick<FormItemProps, "label" | "extra" | "required" | "disabled" | "messageVariables"> & {
+export type ProSelectorProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   itemProps?: FormItemProps;
   fieldProps?: SelectorProps<OptionValue>;

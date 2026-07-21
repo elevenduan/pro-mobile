@@ -1,5 +1,5 @@
 import { Button, Form } from "antd-mobile";
-import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea, ProSelector } from "./components";
+import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea, ProSelector, ProDatePicker } from "./components";
 import "./App.css";
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
         <ProCheckbox label="性别" name="sex" required options={options} />
         <ProTextArea label="备注" name="remark" />
         <ProSelector label="性别" name="selector" required options={options} columns={3} />
+        <ProDatePicker label="生日" name="birthday" required />
       </Form>
     </div>
   );
