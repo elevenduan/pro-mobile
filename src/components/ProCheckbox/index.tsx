@@ -25,7 +25,7 @@ export const ProCheckbox: FC<ProCheckboxProps> = (props) => {
       <Checkbox.Group>
         <Space block wrap {...spaceProps}>
           {options.map((item) => (
-            <Checkbox key={item.value} value={item.value} {...fieldProps}>
+            <Checkbox key={item.value} value={item.value} block {...fieldProps}>
               {item.label}
             </Checkbox>
           ))}

@@ -8,11 +8,12 @@ export * as utils from "./utils";
 export * from "./types";
 
 // conponents
+export * from "./ProEmpty";
+export * from "./ProBlank";
 export * from "./ProNumber";
 export * from "./ProInput";
 export * from "./ProPassword";
 export * from "./ProPasswordGroup";
 export * from "./ProRadio";
 export * from "./ProCheckbox";
-export * from "./ProEmpty";
-export * from "./ProBlank";
+export * from "./ProTextArea";

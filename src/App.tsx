@@ -1,5 +1,5 @@
 import { Button, Form } from "antd-mobile";
-import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox } from "./components";
+import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea } from "./components";
 import "./App.css";
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
         <ProPasswordGroup />
         <ProRadio label="性别" name="gender" required options={options} />
         <ProCheckbox label="性别" name="sex" required options={options} />
+        <ProTextArea label="备注" name="remark" />
       </Form>
     </div>
   );

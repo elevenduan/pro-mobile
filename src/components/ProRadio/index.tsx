@@ -25,7 +25,7 @@ export const ProRadio: FC<ProRadioProps> = (props) => {
       <Radio.Group>
         <Space block wrap {...spaceProps}>
           {options.map((item) => (
-            <Radio key={item.value} value={item.value} {...fieldProps}>
+            <Radio key={item.value} value={item.value} block {...fieldProps}>
               {item.label}
             </Radio>
           ))}
