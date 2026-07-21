@@ -1,5 +1,5 @@
 import { Button, Form } from "antd-mobile";
-import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea, ProSelector, ProDatePicker } from "./components";
+import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea, ProSelector, ProDatePicker, ProDateRange } from "./components";
 import "./App.css";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
     <div>
       <Form
         form={form}
+        initialValues={{ dts: [{}] }}
         onFinish={(values) => console.log(values)}
         onFinishFailed={(errorInfo) => console.log(errorInfo)}
         // layout="horizontal"
@@ -32,6 +33,19 @@ function App() {
         <ProTextArea label="备注" name="remark" />
         <ProSelector label="性别" name="selector" required options={options} columns={3} />
         <ProDatePicker label="生日" name="birthday" required />
+        <ProDateRange label="日期范围" required showLong />
+        <Form.Array name={["dts"]}>
+          {(fields) =>
+            fields.map(({ key, index }) => {
+              return (
+                <div key={key}>
+                  <ProDatePicker label="生日" name={[index, "birthday"]} required />
+                  <ProDateRange label="日期范围" required showLong props={[{ name: [index, "start"] }, { name: [index, "end"] }]} />
+                </div>
+              );
+            })
+          }
+        </Form.Array>
       </Form>
     </div>
   );

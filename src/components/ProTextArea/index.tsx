@@ -5,7 +5,7 @@ import { Form, TextArea } from "antd-mobile";
 
 export type ProTextAreaProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: TextAreaProps;
 };
 
@@ -14,7 +14,7 @@ export const ProTextArea: FC<ProTextAreaProps> = (props) => {
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
-    <Form.Item {...rest} {...itemProps} rules={[{ required }, ...(itemProps?.rules || [])]}>
+    <Form.Item {...rest} {...itemProps} rules={[{ required }, ...(rest?.rules || [])]}>
       <TextArea placeholder={`请输入${messageLabel}`} rows={1} autoSize={{ minRows: 1, maxRows: 3 }} {...fieldProps} />
     </Form.Item>
   );

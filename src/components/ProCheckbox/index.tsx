@@ -12,7 +12,7 @@ export type CheckboxOption = {
 export type ProCheckboxProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   options: CheckboxOption[];
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: CheckboxProps;
   spaceProps?: SpaceProps;
 };
@@ -22,7 +22,7 @@ export const ProCheckbox: FC<ProCheckboxProps> = (props) => {
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
-    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(itemProps?.rules || [])]}>
+    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(rest?.rules || [])]}>
       <Checkbox.Group>
         <Space block wrap {...spaceProps}>
           {options?.map((item) => (

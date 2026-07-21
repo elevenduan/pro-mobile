@@ -12,7 +12,7 @@ export type RadioOption = {
 export type ProRadioProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   options: RadioOption[];
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: RadioProps;
   spaceProps?: SpaceProps;
 };
@@ -22,7 +22,7 @@ export const ProRadio: FC<ProRadioProps> = (props) => {
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
-    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(itemProps?.rules || [])]}>
+    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(rest?.rules || [])]}>
       <Radio.Group>
         <Space block wrap {...spaceProps}>
           {options?.map((item) => (

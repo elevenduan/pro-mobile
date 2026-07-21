@@ -8,7 +8,7 @@ export type ProNumberProps = Pick<FormItemProps, GeneralFormItemKey> & {
   min?: number | null; // 允许为 null，表示没有最小值
   max?: number;
   precision?: number;
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: InputProps;
 };
 
@@ -32,7 +32,7 @@ export const ProNumber: FC<ProNumberProps> = (props) => {
             return Promise.resolve();
           },
         },
-        ...(itemProps?.rules || []),
+        ...(rest?.rules || []),
       ]}
       getValueFromEvent={(val: string) => {
         let formatted = val.replace(/[^\d.-]/g, "");

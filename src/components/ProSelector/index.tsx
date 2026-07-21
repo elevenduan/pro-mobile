@@ -5,8 +5,8 @@ import { Form, Selector } from "antd-mobile";
 
 export type ProSelectorProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  itemProps?: FormItemProps;
-  fieldProps?: SelectorProps<OptionValue>;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
+  fieldProps?: Omit<SelectorProps<OptionValue>, "options" | "columns" | "multiple">;
 } & Pick<SelectorProps<OptionValue>, "options" | "columns" | "multiple">;
 
 export const ProSelector: FC<ProSelectorProps> = (props) => {
@@ -14,7 +14,7 @@ export const ProSelector: FC<ProSelectorProps> = (props) => {
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
 
   return (
-    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(itemProps?.rules || [])]}>
+    <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(rest?.rules || [])]}>
       <Selector options={options} columns={columns} multiple={multiple} {...fieldProps} />
     </Form.Item>
   );

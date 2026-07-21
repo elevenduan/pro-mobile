@@ -7,7 +7,7 @@ import { EyeInvisibleOutline, EyeOutline } from "antd-mobile-icons";
 
 export type ProPasswordProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: InputProps;
 };
 
@@ -21,7 +21,7 @@ export const ProPassword: FC<ProPasswordProps> = (props) => {
       extra={<div onClick={() => setVisibleEye(!visibleEye)}>{visibleEye ? <EyeOutline /> : <EyeInvisibleOutline />}</div>}
       {...rest}
       {...itemProps}
-      rules={[{ required }, ...(itemProps?.rules || [])]}
+      rules={[{ required }, ...(rest?.rules || [])]}
     >
       <Input type={visibleEye ? "text" : "password"} clearable placeholder={`请输入${messageLabel}`} {...fieldProps} />
     </Form.Item>

@@ -7,7 +7,7 @@ import * as utils from "../utils";
 export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
   verify?: "url" | "email" | "ip" | "ipv4" | "ipv6" | "bankNo" | "idNo" | "mobile" | "usci";
-  itemProps?: FormItemProps;
+  itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: InputProps;
 };
 
@@ -25,7 +25,7 @@ export const ProInput: FC<ProInputProps> = (props) => {
         {
           validator: (_, value) => (!value || !validator || validator(value) ? Promise.resolve() : Promise.reject(`请输入正确的${messageLabel}`)),
         },
-        ...(itemProps?.rules || []),
+        ...(rest?.rules || []),
       ]}
     >
       <Input type="text" clearable placeholder={`请输入${messageLabel}`} {...fieldProps} />
