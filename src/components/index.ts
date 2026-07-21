@@ -14,3 +14,4 @@ export * from "./ProPassword";
 export * from "./ProPasswordGroup";
 export * from "./ProRadio";
 export * from "./ProCheckbox";
+export * from "./ProEmpty";
