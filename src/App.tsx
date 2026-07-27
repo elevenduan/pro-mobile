@@ -12,6 +12,7 @@ import {
   ProDatePicker,
   ProDateRange,
   ProPicker,
+  ProCheckList,
 } from "./components";
 import "./App.css";
 
@@ -64,6 +65,7 @@ function App() {
           }
         </Form.Array>
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
+        <ProCheckList label="爱好" name="hobby" required options={options} multiple showCount />
       </Form>
     </div>
   );
