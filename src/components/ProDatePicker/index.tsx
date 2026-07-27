@@ -47,8 +47,10 @@ export const ProDatePicker: FC<ProDatePickerProps> = (props) => {
         children={(value) => (value ? dayjs(value).format(formatString) : <span style={{ color: "var(--adm-color-light)" }}>{placeholder || message}</span>)}
         {...fieldProps}
         title={
-          <Space block justify="between">
-            <a onClick={onClear}>清除</a>
+          <Space block justify="between" align="center">
+            <a onClick={onClear} style={{ padding: "8px 0" }}>
+              清除
+            </a>
             <span>{fieldProps?.title || message}</span>
             <span>&emsp;&emsp;</span>
           </Space>

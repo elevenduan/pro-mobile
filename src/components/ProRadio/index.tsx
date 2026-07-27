@@ -3,7 +3,7 @@ import type { FormItemProps, RadioProps, SpaceProps } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath, OptionValue } from "../types";
 import { Form, Radio, Space } from "antd-mobile";
 
-export type RadioOption = {
+export type ProRadioOption = {
   label: ReactNode;
   value: OptionValue;
   disabled?: boolean;
@@ -11,7 +11,7 @@ export type RadioOption = {
 
 export type ProRadioProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  options: RadioOption[];
+  options: ProRadioOption[];
   itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: RadioProps;
   spaceProps?: SpaceProps;

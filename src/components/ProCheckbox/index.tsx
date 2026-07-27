@@ -3,7 +3,7 @@ import type { FormItemProps, CheckboxProps, SpaceProps } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath, OptionValue } from "../types";
 import { Checkbox, Form, Space } from "antd-mobile";
 
-export type CheckboxOption = {
+export type ProCheckboxOption = {
   label: ReactNode;
   value: OptionValue;
   disabled?: boolean;
@@ -11,7 +11,7 @@ export type CheckboxOption = {
 
 export type ProCheckboxProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  options: CheckboxOption[];
+  options: ProCheckboxOption[];
   itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: CheckboxProps;
   spaceProps?: SpaceProps;

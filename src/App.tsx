@@ -1,5 +1,18 @@
+import { useEffect } from "react";
 import { Button, Form } from "antd-mobile";
-import { ProNumber, ProInput, ProPassword, ProPasswordGroup, ProRadio, ProCheckbox, ProTextArea, ProSelector, ProDatePicker, ProDateRange } from "./components";
+import {
+  ProNumber,
+  ProInput,
+  ProPassword,
+  ProPasswordGroup,
+  ProRadio,
+  ProCheckbox,
+  ProTextArea,
+  ProSelector,
+  ProDatePicker,
+  ProDateRange,
+  ProPicker,
+} from "./components";
 import "./App.css";
 
 function App() {
@@ -9,6 +22,10 @@ function App() {
     { label: "女", value: "female" },
     { label: "其他", value: "other", disabled: true },
   ];
+
+  useEffect(() => {
+    console.log("App mounted");
+  }, []);
 
   return (
     <div>
@@ -46,6 +63,7 @@ function App() {
             })
           }
         </Form.Array>
+        <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
       </Form>
     </div>
   );
