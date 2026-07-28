@@ -2,7 +2,8 @@ import type { FC, ReactNode } from "react";
 import type { CheckListProps, FormItemProps } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath, OptionValue } from "../types";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { CheckList, Form, Popup, Space } from "antd-mobile";
+import { CheckList, Form, Space } from "antd-mobile";
+import { ProPopup } from "../ProPopup";
 
 type CheckListInputProps = Pick<ProCheckListProps, "options" | "title" | "multiple" | "showCount" | "placeholder"> & {
   value?: OptionValue[];
@@ -56,36 +57,28 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
       ) : (
         <span style={{ color: "var(--adm-color-light)" }}>{placeholder}</span>
       )}
-      <Popup visible={visible} onClose={onClose} closeOnMaskClick className="adm-picker-popup adm-popup-checklist">
-        <div className="adm-picker" style={{ maxHeight: "65vh", minHeight: "300px", height: "auto" }}>
-          <div className="adm-picker-header" style={{ marginBottom: "-1px", position: "relative", zIndex: 2 }}>
-            <a className="adm-picker-header-button" onClick={onClose}>
-              取消
+      <ProPopup
+        visible={visible}
+        onClose={onClose}
+        onConfirm={() => handleConfirm(tempValue)}
+        title={
+          <Space block justify="between" align="center">
+            <a onClick={handleClear} style={{ padding: "8px 0" }}>
+              清除
             </a>
-            <div className="adm-picker-header-title">
-              <Space block justify="between" align="center">
-                <a onClick={handleClear} style={{ padding: "8px 0" }}>
-                  清除
-                </a>
-                <div>{title}</div>
-                {multiple ? <a onClick={handleSelectAll}>全选</a> : <span>&emsp;&emsp;</span>}
-              </Space>
-            </div>
-            <a className="adm-picker-header-button" onClick={() => handleConfirm(tempValue)}>
-              确定
-            </a>
-          </div>
-          <div className="adm-picker-body" style={{ overflow: "auto" }}>
-            <CheckList multiple={multiple} value={tempValue} onChange={handleChange}>
-              {options.map(({ label: iLabel, value: iValue, ...rest }) => (
-                <CheckList.Item key={iValue} value={iValue} {...rest}>
-                  {iLabel}
-                </CheckList.Item>
-              ))}
-            </CheckList>
-          </div>
-        </div>
-      </Popup>
+            <div>{title}</div>
+            {multiple ? <a onClick={handleSelectAll}>全选</a> : <span>&emsp;&emsp;</span>}
+          </Space>
+        }
+      >
+        <CheckList multiple={multiple} value={tempValue} onChange={handleChange}>
+          {options.map(({ label: iLabel, value: iValue, ...rest }) => (
+            <CheckList.Item key={iValue} value={iValue} {...rest}>
+              {iLabel}
+            </CheckList.Item>
+          ))}
+        </CheckList>
+      </ProPopup>
     </>
   );
 });

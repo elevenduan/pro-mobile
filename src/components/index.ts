@@ -22,3 +22,4 @@ export * from "./ProDatePicker";
 export * from "./ProPicker";
 export * from "./ProDateRange";
 export * from "./ProTextArea";
+export * from "./ProPopup";

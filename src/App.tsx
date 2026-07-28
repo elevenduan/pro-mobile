@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "antd-mobile";
 import {
   ProNumber,
@@ -13,6 +13,7 @@ import {
   ProDateRange,
   ProPicker,
   ProCheckList,
+  ProPopup,
 } from "./components";
 import "./App.css";
 
@@ -23,6 +24,8 @@ function App() {
     { label: "女", value: "female" },
     { label: "其他", value: "other", disabled: true },
   ];
+
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     console.log("App mounted");
@@ -67,6 +70,9 @@ function App() {
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
         <ProCheckList label="爱好" name="hobby" required options={options} multiple showCount />
       </Form>
+
+      <Button onClick={() => setVisible(true)}>弹窗</Button>
+      <ProPopup visible={visible} onClose={() => setVisible(false)} title="标题"></ProPopup>
     </div>
   );
 }
