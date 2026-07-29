@@ -15,21 +15,30 @@ import {
   ProCheckList,
   ProPopup,
   ProIFrame,
+  ProSwitch,
 } from "./components";
 import "./App.css";
 
+// const mockRequest = (): Promise<void> => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve();
+//     }, 2000);
+//   });
+// };
+
+const options = [
+  { label: "男", value: "male" },
+  { label: "女", value: "female" },
+  // { label: "其他", value: "other", disabled: true },
+  // { label: "真", value: "true" },
+  // { label: "假", value: "false" },
+  // { label: "是", value: "yes" },
+  // { label: "否", value: "no" },
+];
+
 function App() {
   const [form] = Form.useForm();
-  const options = [
-    { label: "男", value: "male" },
-    { label: "女", value: "female" },
-    // { label: "其他", value: "other", disabled: true },
-    // { label: "真", value: "true" },
-    // { label: "假", value: "false" },
-    // { label: "是", value: "yes" },
-    // { label: "否", value: "no" },
-  ];
-
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
@@ -75,6 +84,7 @@ function App() {
         </Form.Array>
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
         <ProCheckList label="爱好" name="hobby" required options={options} multiple />
+        <ProSwitch label="开关" name="switch" required layout="horizontal" />
       </Form>
 
       <Button onClick={() => setVisible1(true)}>弹窗1</Button>
