@@ -14,6 +14,7 @@ import {
   ProPicker,
   ProCheckList,
   ProPopup,
+  ProIFrame,
 } from "./components";
 import "./App.css";
 
@@ -22,10 +23,15 @@ function App() {
   const options = [
     { label: "男", value: "male" },
     { label: "女", value: "female" },
-    { label: "其他", value: "other", disabled: true },
+    // { label: "其他", value: "other", disabled: true },
+    // { label: "真", value: "true" },
+    // { label: "假", value: "false" },
+    // { label: "是", value: "yes" },
+    // { label: "否", value: "no" },
   ];
 
-  const [visible, setVisible] = useState(false);
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
 
   useEffect(() => {
     console.log("App mounted");
@@ -68,11 +74,25 @@ function App() {
           }
         </Form.Array>
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
-        <ProCheckList label="爱好" name="hobby" required options={options} multiple showCount />
+        <ProCheckList label="爱好" name="hobby" required options={options} multiple />
       </Form>
 
-      <Button onClick={() => setVisible(true)}>弹窗</Button>
-      <ProPopup visible={visible} onClose={() => setVisible(false)} title="标题"></ProPopup>
+      <Button onClick={() => setVisible1(true)}>弹窗1</Button>
+      <ProPopup visible={visible1} onClose={() => setVisible1(false)} title="标题"></ProPopup>
+
+      <Button onClick={() => setVisible2(true)}>弹窗2</Button>
+      <ProIFrame
+        visible={visible2}
+        onClose={() => setVisible2(false)}
+        title="服务协议"
+        url=""
+        height="80vh"
+        footer={
+          <Button color="primary" onClick={() => setVisible2(false)} block>
+            关闭
+          </Button>
+        }
+      />
     </div>
   );
 }

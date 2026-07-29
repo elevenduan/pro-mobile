@@ -7,12 +7,12 @@ export type ProPopupProps = PopupProps & {
   title?: ReactNode;
   confirmText?: ReactNode;
   onConfirm?: () => void;
-  maxHeight?: string | number;
-  showHeader?: boolean;
+  height?: string | number;
+  hideHeader?: boolean;
 };
 
 export const ProPopup: FC<ProPopupProps> = (props) => {
-  const { cancelText = "取消", title, confirmText = "确定", onConfirm, maxHeight = "65vh", onClose, children, showHeader = true, ...rest } = props;
+  const { cancelText = "取消", title, confirmText = "确定", onConfirm, height, hideHeader, onClose, children, ...rest } = props;
 
   const handleConfirm = () => {
     onConfirm?.();
@@ -21,9 +21,9 @@ export const ProPopup: FC<ProPopupProps> = (props) => {
 
   return (
     <Popup closeOnMaskClick className="adm-picker-popup" {...rest} onClose={onClose}>
-      <div className="adm-picker" style={{ maxHeight, minHeight: "300px", height: "auto" }}>
-        {showHeader && (
-          <div className="adm-picker-header" style={{ marginBottom: "-1px", position: "relative", zIndex: 2 }}>
+      <div className="adm-picker" style={{ height }}>
+        {!hideHeader && (
+          <div className="adm-picker-header">
             <a className="adm-picker-header-button" onClick={onClose}>
               {cancelText}
             </a>

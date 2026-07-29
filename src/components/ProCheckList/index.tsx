@@ -5,13 +5,13 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { CheckList, Form, Space } from "antd-mobile";
 import { ProPopup } from "../ProPopup";
 
-type CheckListInputProps = Pick<ProCheckListProps, "options" | "title" | "multiple" | "showCount" | "placeholder"> & {
+type CheckListInputProps = Pick<ProCheckListProps, "options" | "title" | "multiple" | "showCount" | "placeholder" | "fieldProps"> & {
   value?: OptionValue[];
   onConfirm?: (value: OptionValue[]) => void;
 };
 
 const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((props, ref) => {
-  const { value = [], onConfirm, options, title, multiple, showCount, placeholder } = props;
+  const { value = [], onConfirm, options, title, multiple, showCount, placeholder, fieldProps } = props;
   const [visible, setVisible] = useState(false);
   const [tempValue, setTempValue] = useState<OptionValue[]>([]);
   const allValues = options.filter((o) => !o.disabled).map((o) => o.value);
@@ -71,7 +71,7 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
           </Space>
         }
       >
-        <CheckList multiple={multiple} value={tempValue} onChange={handleChange}>
+        <CheckList multiple={multiple} value={tempValue} onChange={handleChange} style={{ "--border-top": "none" }} {...fieldProps}>
           {options.map(({ label: iLabel, value: iValue, ...rest }) => (
             <CheckList.Item key={iValue} value={iValue} {...rest}>
               {iLabel}
@@ -124,7 +124,7 @@ export const ProCheckList: FC<ProCheckListProps> = (props) => {
         title={title || message}
         multiple={multiple}
         placeholder={placeholder || message}
-        {...fieldProps}
+        fieldProps={fieldProps}
       />
     </Form.Item>
   );
