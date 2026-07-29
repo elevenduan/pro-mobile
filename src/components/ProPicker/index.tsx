@@ -40,16 +40,17 @@ export const ProPicker: FC<ProPickerProps> = (props) => {
   return (
     <Form.Item
       {...rest}
-      {...itemProps}
       validateFirst
       clickable={false}
+      getValueFromEvent={(val) => (val || []).map((v: any) => (!v && allowSearchWord ? keyword : v)).filter(Boolean)}
+      {...itemProps}
       trigger="onConfirm"
-      onClick={(_, ref) => {
+      onClick={(e, ref) => {
         ref.current?.open();
         pickerRef.current = ref.current;
+        itemProps?.onClick?.(e, ref);
       }}
       rules={[{ required, message }, ...(rest?.rules || [])]}
-      getValueFromEvent={(val) => (val || []).map((v: any) => (!v && allowSearchWord ? keyword : v)).filter(Boolean)}
     >
       <Picker
         children={(items) =>

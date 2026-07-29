@@ -31,13 +31,14 @@ export const ProDatePicker: FC<ProDatePickerProps> = (props) => {
   return (
     <Form.Item
       {...rest}
-      {...itemProps}
       validateFirst
       clickable={false}
+      {...itemProps}
       trigger="onConfirm"
-      onClick={(_, ref) => {
+      onClick={(e, ref) => {
         ref.current?.open();
         pickerRef.current = ref.current;
+        itemProps?.onClick?.(e, ref);
       }}
       rules={[{ required, message }, ...(rest?.rules || [])]}
     >

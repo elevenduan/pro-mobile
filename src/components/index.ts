@@ -21,6 +21,7 @@ export * from "./ProCheckList";
 export * from "./ProSelector";
 export * from "./ProDatePicker";
 export * from "./ProPicker";
+export * from "./ProCascader";
 export * from "./ProDateRange";
 export * from "./ProTextArea";
 export * from "./ProPopup";

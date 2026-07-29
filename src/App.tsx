@@ -16,6 +16,7 @@ import {
   ProPopup,
   ProIFrame,
   ProSwitch,
+  ProCascader,
 } from "./components";
 import "./App.css";
 
@@ -30,11 +31,24 @@ import "./App.css";
 const options = [
   { label: "男", value: "male" },
   { label: "女", value: "female" },
-  // { label: "其他", value: "other", disabled: true },
-  // { label: "真", value: "true" },
-  // { label: "假", value: "false" },
-  // { label: "是", value: "yes" },
-  // { label: "否", value: "no" },
+];
+
+const citys = [
+  {
+    label: "浙江",
+    value: "浙江",
+    children: [
+      {
+        label: "杭州",
+        value: "杭州",
+        children: [
+          { label: "西湖区", value: "西湖区" },
+          { label: "上城区", value: "上城区" },
+          { label: "余杭区", value: "余杭区", disabled: true },
+        ],
+      },
+    ],
+  },
 ];
 
 function App() {
@@ -85,6 +99,7 @@ function App() {
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
         <ProCheckList label="爱好" name="hobby" required options={options} multiple />
         <ProSwitch label="开关" name="switch" required layout="horizontal" />
+        <ProCascader label="城市" name="cascader" required options={citys} />
       </Form>
 
       <Button onClick={() => setVisible1(true)}>弹窗1</Button>

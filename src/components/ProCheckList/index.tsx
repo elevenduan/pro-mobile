@@ -111,11 +111,14 @@ export const ProCheckList: FC<ProCheckListProps> = (props) => {
   return (
     <Form.Item
       {...rest}
-      {...itemProps}
       validateFirst
       clickable={false}
+      {...itemProps}
       trigger="onConfirm"
-      onClick={(_, ref) => ref.current?.open()}
+      onClick={(e, ref) => {
+        ref.current?.open();
+        itemProps?.onClick?.(e, ref);
+      }}
       rules={[{ required, message }, ...(rest.rules || [])]}
     >
       <CheckListInput
