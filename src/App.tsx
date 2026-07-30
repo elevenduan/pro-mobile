@@ -17,16 +17,17 @@ import {
   ProIFrame,
   ProSwitch,
   ProCascader,
+  ProScrollList,
 } from "./components";
 import "./App.css";
 
-// const mockRequest = (): Promise<void> => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve();
-//     }, 2000);
-//   });
-// };
+const mockRequest = (): Promise<any> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ data: ["浙江", "杭州", "西湖区"] });
+    }, 2000);
+  });
+};
 
 const options = [
   { label: "男", value: "male" },
@@ -55,6 +56,7 @@ function App() {
   const [form] = Form.useForm();
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [params, setParams] = useState({ current: 1, size: 10 });
 
   useEffect(() => {
     console.log("App mounted");
@@ -62,6 +64,10 @@ function App() {
 
   return (
     <div>
+      <ProScrollList api={mockRequest} params={params} setParams={setParams}>
+        {(list) => list.map((item, index) => <span key={index}>{item}</span>)}
+      </ProScrollList>
+
       <Form
         form={form}
         initialValues={{ dts: [{}] }}
@@ -106,18 +112,7 @@ function App() {
       <ProPopup visible={visible1} onClose={() => setVisible1(false)} title="标题"></ProPopup>
 
       <Button onClick={() => setVisible2(true)}>弹窗2</Button>
-      <ProIFrame
-        visible={visible2}
-        onClose={() => setVisible2(false)}
-        title="服务协议"
-        url=""
-        height="80vh"
-        footer={
-          <Button color="primary" onClick={() => setVisible2(false)} block>
-            关闭
-          </Button>
-        }
-      />
+      <ProIFrame visible={visible2} onClose={() => setVisible2(false)} title="服务协议" url="" height="80vh" />
     </div>
   );
 }

@@ -26,3 +26,4 @@ export * from "./ProDateRange";
 export * from "./ProTextArea";
 export * from "./ProPopup";
 export * from "./ProIFrame";
+export * from "./ProScrollList";
