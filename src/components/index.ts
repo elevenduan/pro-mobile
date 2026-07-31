@@ -28,3 +28,4 @@ export * from "./ProPopup";
 export * from "./ProIFrame";
 export * from "./ProScrollList";
 export * from "./ProImage";
+export * from "./ProUploader";
