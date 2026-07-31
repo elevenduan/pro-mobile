@@ -18,6 +18,7 @@ import {
   ProSwitch,
   ProCascader,
   ProScrollList,
+  ProImage,
 } from "./components";
 import "./App.css";
 
@@ -106,6 +107,9 @@ function App() {
         <ProCheckList label="爱好" name="hobby" required options={options} multiple />
         <ProSwitch label="开关" name="switch" required layout="horizontal" />
         <ProCascader label="城市" name="cascader" required options={citys} />
+        <Form.Item label="图片" name="image">
+          <ProImage src="23" />
+        </Form.Item>
       </Form>
 
       <Button onClick={() => setVisible1(true)}>弹窗1</Button>
