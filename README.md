@@ -1,34 +1,36 @@
-# React + TypeScript + Vite
+# pro-mobile
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+基于 React 和 Ant Design Mobile 的移动端业务组件库。
 
-Currently, two official plugins are available:
+## 安装
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+pnpm add pro-mobile antd-mobile antd-mobile-icons dayjs
+```
 
-## React Compiler
+## 使用
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+```tsx
+import { ProInput, ProNumber } from "pro-mobile";
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
+export function Example() {
+  return (
+    <>
+      <ProInput label="邮箱" name="email" />
+      <ProNumber label="金额" name="amount" />
+    </>
+  );
 }
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 构建与发布
+
+```bash
+pnpm build
+pnpm pack --dry-run
+pnpm publish
+```
+
+`pnpm build` 会生成 ESM 和 TypeScript 声明文件到 `dist`。Ant Design Mobile、图标库和 dayjs 作为 peer dependencies，由使用方安装和管理。
+
+发布前请将 `package.json` 中的 `name` 改为你拥有的 npm 包名，并更新 `version`。
