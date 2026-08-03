@@ -5,13 +5,13 @@
 ## 安装
 
 ```bash
-pnpm add pro-mobile antd-mobile antd-mobile-icons dayjs
+pnpm add @bigflower/pro-mobile
 ```
 
 ## 使用
 
 ```tsx
-import { ProInput, ProNumber } from "pro-mobile";
+import { ProInput, ProNumber } from "@bigflower/pro-mobile";
 
 export function Example() {
   return (
@@ -22,15 +22,3 @@ export function Example() {
   );
 }
 ```
-
-## 构建与发布
-
-```bash
-pnpm build
-pnpm pack --dry-run
-pnpm publish
-```
-
-`pnpm build` 会生成 ESM 和 TypeScript 声明文件到 `dist`。Ant Design Mobile、图标库和 dayjs 作为 peer dependencies，由使用方安装和管理。
-
-发布前请将 `package.json` 中的 `name` 改为你拥有的 npm 包名，并更新 `version`。

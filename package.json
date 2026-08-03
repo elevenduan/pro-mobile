@@ -1,6 +1,9 @@
 {
   "name": "@bigflower/pro-mobile",
   "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Reusable React components built on Ant Design Mobile.",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
@@ -17,6 +20,7 @@
   "sideEffects": false,
   "packageManager": "pnpm@11.16.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc -p tsconfig.lib.json",
