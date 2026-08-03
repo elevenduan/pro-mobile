@@ -16,5 +16,4 @@ export default defineConfig({
       external: [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, /^antd-mobile(\/.*)?$/, /^antd-mobile-icons(\/.*)?$/, /^dayjs(\/.*)?$/, /^rc-field-form(\/.*)?$/],
     },
   },
-  server: { host: "0.0.0.0", port: 80, allowedHosts: true },
 });

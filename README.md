@@ -16,8 +16,8 @@ import { ProInput, ProNumber } from "@bigflower/pro-mobile";
 export function Example() {
   return (
     <>
-      <ProInput label="邮箱" name="email" />
-      <ProNumber label="金额" name="amount" />
+      <ProNumber label="金额" name="money" required extra="元" />
+      <ProInput label="邮箱" name="email" required verify="email" />
     </>
   );
 }

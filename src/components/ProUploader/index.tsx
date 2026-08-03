@@ -17,9 +17,19 @@ export const ProUploader: FC<ProUploaderProps> = (props) => {
   const messageLabel = rest.messageVariables?.label || rest.label || "";
 
   async function beforeUpload(file: File) {
-    const accept = fieldProps?.accept;
-    if (!(accept ? accept.includes(file.type) : file.type.startsWith("image/"))) {
-      Toast.show(accept ? "请上传支持的文件类型" : "请上传支持的图片类型");
+    const accept =
+      fieldProps?.accept
+        ?.toLowerCase()
+        ?.split(",")
+        ?.map((item) => item.trim()) || null;
+    const fileType = file.type.toLowerCase();
+    const fileName = file.name.toLowerCase();
+    if (!accept && !fileType.startsWith("image/")) {
+      Toast.show("请上传图片文件");
+      return null;
+    }
+    if (accept && !accept.some((item) => fileName.endsWith(item) || fileType.startsWith(item.replace("/*", "")) || ["*", "*/*"].includes(item))) {
+      Toast.show("请上传支持的文件");
       return null;
     }
     if (file.size > maxFileSize * 1024 * 1024) {
