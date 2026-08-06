@@ -6,7 +6,7 @@ import * as utils from "../utils";
 
 export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  verify?: "url" | "email" | "ip" | "ipv4" | "ipv6" | "bankNo" | "idNo" | "mobile" | "usci";
+  verify?: "url" | "email" | "ip" | "ipv4" | "ipv6" | "bankNo" | "idNo" | "mobile" | "usci" | "sms";
   itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: InputProps;
 };

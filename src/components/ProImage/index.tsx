@@ -14,5 +14,5 @@ export const ProImage: FC<ProImageProps> = (props) => {
     }
   }
 
-  return <Image fit="contain" width={64} height={64} onClick={onClick} {...props} src={src} />;
+  return <Image fit="contain" width={56} height={56} onClick={onClick} {...props} src={src} />;
 };

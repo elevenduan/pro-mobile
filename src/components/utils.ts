@@ -99,6 +99,9 @@ export const isIdNo = (value: unknown): boolean => {
 /** 判断值是否为以 13 至 19 开头的 11 位中国大陆手机号码。 */
 export const isMobile = (value: unknown): boolean => isString(value) && /^1[3-9]\d{9}$/.test(value);
 
+/** 判断值是否为 6 位数字短信验证码。 */
+export const isSms = (value: unknown): boolean => isString(value) && /^\d{6}$/.test(value);
+
 /** 判断值是否为校验码有效的统一社会信用代码（USCI）。 */
 export const isUsci = (value: unknown): boolean => {
   if (!isString(value)) return false;
@@ -134,6 +137,8 @@ export const isPassword = (value: unknown, options: PasswordOptions = {}): boole
 
 type Mergeable = Record<PropertyKey, unknown> | unknown[];
 
+const isUnsafeMergeKey = (key: PropertyKey): boolean => key === "__proto__" || key === "constructor" || key === "prototype";
+
 /** 判断值是否为可递归合并的普通对象。 */
 const isPlainObject = (value: unknown): value is Record<PropertyKey, unknown> => {
   if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
@@ -141,8 +146,8 @@ const isPlainObject = (value: unknown): value is Record<PropertyKey, unknown> =>
   return prototype === Object.prototype || prototype === null;
 };
 
-/** 深度合并多个对象或数组；数组按下标合并，后续来源会覆盖同名键或同下标的值。 */
-export const merge = <T extends Mergeable>(target: T, ...sources: Mergeable[]): T => {
+/** 深度合并多个对象或数组；数组按下标合并，undefined 来源会被忽略。 */
+export const merge = <T extends Mergeable>(target: T, ...sources: (Mergeable | undefined)[]): T => {
   const mergeValue = (current: unknown, next: unknown): unknown => {
     if (Array.isArray(current) && Array.isArray(next)) {
       const result = [...current];
@@ -155,6 +160,7 @@ export const merge = <T extends Mergeable>(target: T, ...sources: Mergeable[]): 
     if (isPlainObject(current) && isPlainObject(next)) {
       const result: Record<PropertyKey, unknown> = { ...current };
       Reflect.ownKeys(next).forEach((key) => {
+        if (isUnsafeMergeKey(key)) return;
         result[key] = mergeValue(result[key], next[key]);
       });
       return result;
@@ -165,5 +171,132 @@ export const merge = <T extends Mergeable>(target: T, ...sources: Mergeable[]): 
     return next;
   };
 
-  return sources.reduce<T>((result, source) => mergeValue(result, source) as T, mergeValue(undefined, target) as T);
+  return sources.reduce<T>((result, source) => (source === undefined ? result : (mergeValue(result, source) as T)), mergeValue(undefined, target) as T);
 };
+
+/** 按指定方向将值的字符串表示分组。 */
+export const separator = (value: unknown, sign = " ", length = 4, reverse = false): string => {
+  const len = Number.isInteger(length) && length > 0 ? length : 4;
+  const reg = reverse ? `(\\S{1,${len}})(?=(\\S{${len}})+(?:$))` : `(\\S{${len}})(?=\\S)`;
+  return String(value).replace(new RegExp(reg, "g"), (_, group: string) => group + sign);
+};
+
+/** 使用千分位逗号格式化数值，可选显示货币符号和固定小数位数。 */
+export const thousand = (value: unknown, currency = "", fixed?: number): string => {
+  if (!isNumeric(value)) return "";
+  const digits = typeof fixed === "number" && Number.isInteger(fixed) && fixed >= 0 ? fixed : undefined;
+  const options = digits === undefined ? {} : { minimumFractionDigits: digits, maximumFractionDigits: digits };
+  const formatter = new Intl.NumberFormat("en-US", options);
+  const formatted = formatter.format(Math.abs(Number(value)));
+  return `${Number(value) < 0 ? "-" : ""}${currency}${formatted}`;
+};
+
+type Decimal = { negative: boolean; digits: string; scale: number };
+
+const parseDecimal = (value: unknown): Decimal | null => {
+  if (typeof value !== "number" && !isString(value)) return null;
+  if (typeof value === "number" && !Number.isFinite(value)) return null;
+
+  const match = String(value)
+    .trim()
+    .match(/^([+-]?)(\d*)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/);
+  if (!match || (!match[2] && !match[3])) return null;
+
+  const exponent = Number(match[4] ?? 0);
+  if (!Number.isSafeInteger(exponent)) return null;
+  const digits = `${match[2]}${match[3] ?? ""}`.replace(/^0+/, "") || "0";
+  return { negative: match[1] === "-", digits, scale: (match[3]?.length ?? 0) - exponent };
+};
+
+/** 将十进制值缩放为指定小数位的整数，并按远离零方向四舍五入。 */
+const toScaledInteger = (value: unknown, scale: number): bigint | null => {
+  const decimal = parseDecimal(value);
+  if (!decimal) return null;
+
+  const shift = scale - decimal.scale;
+  let result: bigint;
+  if (shift >= 0) {
+    result = BigInt(decimal.digits) * 10n ** BigInt(shift);
+  } else {
+    const divisor = 10n ** BigInt(-shift);
+    const amount = BigInt(decimal.digits);
+    result = amount / divisor;
+    if ((amount % divisor) * 2n >= divisor) result += 1n;
+  }
+  return decimal.negative && result !== 0n ? -result : result;
+};
+
+/** 按指定倍率缩放十进制值；未指定小数位数时保留原始精度。 */
+export const decimal = (value: unknown, scale = 0, fixed?: number): string => {
+  const source = parseDecimal(value);
+  if (!source || !Number.isSafeInteger(scale) || (fixed !== undefined && (!Number.isSafeInteger(fixed) || fixed < 0))) return "";
+
+  const digits = fixed ?? Math.max(source.scale - scale, 0);
+  const targetScale = scale + digits;
+  if (!Number.isSafeInteger(digits) || !Number.isSafeInteger(targetScale)) return "";
+
+  const amount = toScaledInteger(value, targetScale);
+  if (amount === null) return "";
+  const negative = amount < 0n;
+  const integer = (negative ? -amount : amount).toString();
+  if (digits === 0) return `${negative ? "-" : ""}${integer}`;
+
+  const padded = integer.padStart(digits + 1, "0");
+  return `${negative ? "-" : ""}${padded.slice(0, -digits)}.${padded.slice(-digits)}`;
+};
+
+/** 将字符串区间内的字符替换为指定符号。 */
+export const asterisk = (value: unknown, start = 0, end?: number, sign = "*"): string => {
+  if (!isString(value)) return "";
+  const slice = value.slice(start, end);
+  const prefix = value.slice(0, start);
+  return value.replace(prefix + slice, prefix + slice.replace(/./g, sign));
+};
+
+type FormValue = string | number | boolean | bigint | null | undefined | object;
+
+const serializeFormValue = (value: FormValue): string | undefined => {
+  if (isNil(value)) return undefined;
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
+};
+
+/** 模拟表单提交 */
+export function openWithForm(url: string, data: Record<string, FormValue> = {}, method: "POST" | "GET" = "POST") {
+  const form = document.createElement("form");
+  form.style.display = "none";
+  form.action = url;
+  form.method = method;
+
+  Object.keys(data).forEach((key) => {
+    const value = serializeFormValue(data[key]);
+    if (value === undefined) return;
+
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = key;
+    input.value = value;
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+
+/** 优化空值显示。 */
+export function display(value: unknown, unit?: string, empty: string = "-"): string {
+  if (isEmpty(value)) return empty;
+  return `${String(value)}${unit ?? ""}`;
+}
+
+/** 下载文件。 */
+export function downloadFile(url: string, name: string) {
+  const link = document.createElement("a");
+  link.style.display = "none";
+  link.href = url;
+  link.setAttribute("download", name);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
