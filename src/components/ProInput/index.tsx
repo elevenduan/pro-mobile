@@ -6,7 +6,7 @@ import * as utils from "../utils";
 
 export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;
-  verify?: "url" | "email" | "ip" | "ipv4" | "ipv6" | "bankNo" | "idNo" | "mobile" | "usci" | "sms";
+  verify?: "isUrl" | "isEmail" | "isIp" | "isIpv4" | "isIpv6" | "isBankNo" | "isIdNo" | "isMobile" | "isUsci" | "isSms";
   itemProps?: Omit<FormItemProps, "name" | GeneralFormItemKey>;
   fieldProps?: InputProps;
 };
@@ -14,7 +14,7 @@ export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
 export const ProInput: FC<ProInputProps> = (props) => {
   const { required, verify, itemProps, fieldProps, ...rest } = props;
   const messageLabel = rest?.messageVariables?.label || rest?.label || "";
-  const validator = verify ? utils[`is${verify[0].toUpperCase() + verify.slice(1)}` as keyof typeof utils] : undefined;
+  const validator = verify ? utils[verify] : undefined;
 
   return (
     <Form.Item

@@ -83,8 +83,8 @@ function App() {
         }
       >
         <ProNumber label="金额" name="money" required extra="元" />
-        <ProInput label="邮箱" name="email" required verify="email" />
-        <ProInput label="验证码" name="captcha" required verify="sms" />
+        <ProInput label="邮箱" name="email" required verify="isEmail" />
+        <ProInput label="验证码" name="captcha" required verify="isSms" />
         <ProPassword label="密码" name="password" required />
         <ProPasswordGroup />
         <ProRadio label="性别" name="gender" required options={options} />

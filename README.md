@@ -17,7 +17,7 @@ export function Example() {
   return (
     <>
       <ProNumber label="金额" name="money" required extra="元" />
-      <ProInput label="邮箱" name="email" required verify="email" />
+      <ProInput label="邮箱" name="email" required verify="isEmail" />
     </>
   );
 }
