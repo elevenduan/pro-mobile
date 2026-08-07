@@ -45,7 +45,6 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "oxlint": "^1.71.0",
     "oxlint-tsgolint": "^0.24.0",
-    "postcss-nesting": "^14.0.1",
     "rc-field-form": "^1.44.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
