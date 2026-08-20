@@ -27,13 +27,13 @@ export const ProPicker: FC<ProPickerProps> = (props) => {
   const formIns = useContext(FieldContext);
   const fullName = [formIns?.prefixName || [], rest.name || []].flat();
   const watchValue = Form.useWatch(fullName);
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const message = `请选择${messageLabel}`;
   const filtered = columns.map((col, index) => (index === 0 ? col.filter((option) => String(option.label).includes(keyword)) : col));
-  const onClear = () => {
+  const onClear = async () => {
     pickerRef.current?.close();
     formIns?.setFieldValue(fullName, []);
-    formIns?.validateFields([fullName]);
+    await formIns?.validateFields([fullName]);
     setKeyword("");
   };
 

@@ -17,15 +17,15 @@ export type ProDatePickerProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProDatePicker: FC<ProDatePickerProps> = (props) => {
   const { required, placeholder, formatString = DATE_FORMAT, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const message = `请选择${messageLabel}`;
   const pickerRef = useRef<PickerRef>(null);
   const formIns = useContext(FieldContext);
   const fullName = [formIns?.prefixName || [], rest.name || []].flat();
-  const onClear = () => {
+  const onClear = async () => {
     pickerRef.current?.close();
     formIns?.setFieldValue(fullName, null);
-    formIns?.validateFields([fullName]);
+    await formIns?.validateFields([fullName]);
   };
 
   return (

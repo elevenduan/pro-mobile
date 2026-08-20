@@ -11,7 +11,7 @@ export type ProSelectorProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProSelector: FC<ProSelectorProps> = (props) => {
   const { required, itemProps, fieldProps, options, columns, multiple, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
 
   return (
     <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(rest?.rules || [])]}>

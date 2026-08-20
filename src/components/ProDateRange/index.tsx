@@ -61,12 +61,12 @@ export const ProDateRange: FC<ProDateRangeProps> = (props) => {
             <Checkbox
               block
               checked={isLong}
-              onChange={(val) => {
+              onChange={async (val) => {
                 if (val) {
                   prevEndVal.current = watchEnd || null;
                 }
                 formIns?.setFieldValue(endName, val ? LONG_DATE : prevEndVal.current);
-                formIns?.validateFields([endName]);
+                await formIns?.validateFields([endName]);
               }}
               style={{ justifyContent: "flex-end", padding: "12px 0" }}
             >

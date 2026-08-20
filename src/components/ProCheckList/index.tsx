@@ -15,7 +15,7 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
   const [visible, setVisible] = useState(false);
   const [tempValue, setTempValue] = useState<OptionValue[]>([]);
   const allValues = options.filter((o) => !o.disabled).map((o) => o.value);
-  const selectedLabels = options.filter((o) => value.includes(o.value)).map((o) => o.label);
+  const selectedLabels = options.filter((o) => value.includes(o.value)).map((o) => o.label) as string[];
 
   const onClose = () => {
     setVisible(false);
@@ -105,7 +105,7 @@ export type ProCheckListProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProCheckList: FC<ProCheckListProps> = (props) => {
   const { required, options, multiple, showCount, title, placeholder, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest.messageVariables?.label || rest.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const message = `请选择${messageLabel}`;
 
   return (

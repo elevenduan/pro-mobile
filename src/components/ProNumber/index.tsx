@@ -14,7 +14,7 @@ export type ProNumberProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProNumber: FC<ProNumberProps> = (props) => {
   const { required, min = 0, max, precision = 2, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
 
   return (
     <Form.Item

@@ -19,12 +19,12 @@ export const ProCascader: FC<ProCascaderProps> = (props) => {
   const formIns = useContext(FieldContext);
   const fullName = [formIns?.prefixName || [], rest.name || []].flat();
   const watchValue = Form.useWatch(fullName);
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const message = `请选择${messageLabel}`;
-  const onClear = () => {
+  const onClear = async () => {
     cascaderRef.current?.close();
     formIns?.setFieldValue(fullName, []);
-    formIns?.validateFields([fullName]);
+    await formIns?.validateFields([fullName]);
   };
 
   return (

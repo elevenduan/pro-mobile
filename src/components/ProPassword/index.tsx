@@ -13,7 +13,7 @@ export type ProPasswordProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProPassword: FC<ProPasswordProps> = (props) => {
   const { required, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const [visibleEye, setVisibleEye] = useState(false);
 
   return (

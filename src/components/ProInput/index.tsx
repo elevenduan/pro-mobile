@@ -13,7 +13,7 @@ export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProInput: FC<ProInputProps> = (props) => {
   const { required, verify, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const validator = verify ? utils[verify] : undefined;
 
   return (

@@ -11,7 +11,7 @@ export type ProTextAreaProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProTextArea: FC<ProTextAreaProps> = (props) => {
   const { required, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
 
   return (
     <Form.Item {...rest} {...itemProps} rules={[{ required }, ...(rest?.rules || [])]}>

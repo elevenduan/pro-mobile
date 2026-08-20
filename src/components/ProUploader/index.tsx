@@ -14,7 +14,7 @@ export type ProUploaderProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProUploader: FC<ProUploaderProps> = (props) => {
   const { required, apiUpload, maxFileSize = 10, itemProps, fieldProps, ...rest } = props;
-  const messageLabel = rest.messageVariables?.label || rest.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
 
   async function beforeUpload(file: File) {
     const accept =

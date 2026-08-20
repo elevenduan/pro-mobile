@@ -19,7 +19,7 @@ export type ProCheckboxProps = Pick<FormItemProps, GeneralFormItemKey> & {
 
 export const ProCheckbox: FC<ProCheckboxProps> = (props) => {
   const { required, options, itemProps, fieldProps, spaceProps, ...rest } = props;
-  const messageLabel = rest?.messageVariables?.label || rest?.label || "";
+  const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
 
   return (
     <Form.Item {...rest} {...itemProps} rules={[{ required, message: `请选择${messageLabel}` }, ...(rest?.rules || [])]}>
