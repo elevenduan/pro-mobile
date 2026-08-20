@@ -7,7 +7,7 @@ export * as utils from "./utils";
 // types
 export * from "./types";
 
-// conponents
+// components
 export * from "./ProEmpty";
 export * from "./ProBlank";
 export * from "./ProNumber";

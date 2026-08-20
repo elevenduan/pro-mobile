@@ -3,26 +3,34 @@ import type { ProPopupProps } from "../ProPopup";
 import { useState } from "react";
 import { ProPopup } from "../ProPopup";
 
-export type ProIFrameProps = Omit<ProPopupProps, "children" | "afterShow" | "afterClose"> & {
+export type ProIFrameProps = ProPopupProps & {
   url?: string;
   footer?: ReactNode;
 };
 
 export const ProIFrame: FC<ProIFrameProps> = (props) => {
-  const { url, footer, ...rest } = props;
+  const { url, footer, children, afterShow, afterClose, ...rest } = props;
   const [autoHeight, setAutoHeight] = useState(false);
 
+  function afterShowInner() {
+    setAutoHeight(true);
+    afterShow?.();
+  }
+
+  function afterCloseInner() {
+    setAutoHeight(false);
+    afterClose?.();
+  }
+
   return (
-    <ProPopup
-      afterShow={() => setAutoHeight(true)}
-      afterClose={() => setAutoHeight(false)}
-      cancelText={<span style={{ visibility: "hidden" }}>取消</span>}
-      confirmText="关闭"
-      {...rest}
-    >
+    <ProPopup afterShow={afterShowInner} afterClose={afterCloseInner} cancelText="&emsp;&emsp;&nbsp;" confirmText="关闭" {...rest}>
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <div style={{ flexGrow: 1 }}>
-          <iframe src={url} style={{ height: autoHeight ? "100%" : "0", width: "100%", border: "none", overflow: "auto", display: "block" }} />
+        <div style={{ flexGrow: 1, overflow: "auto" }}>
+          {url ? (
+            <iframe src={url} style={{ height: autoHeight ? "100%" : "0", width: "100%", border: "none", overflow: "auto", display: "block" }} />
+          ) : (
+            children
+          )}
         </div>
         <div>{footer}</div>
       </div>

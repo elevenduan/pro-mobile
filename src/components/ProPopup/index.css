@@ -1,0 +1,31 @@
+.pro-popup .adm-popup-body-position-bottom {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.pro-popup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--adm-color-border);
+  font-size: var(--adm-font-size-7);
+}
+
+.pro-popup-header-button {
+  padding: 12px;
+}
+
+.pro-popup-header-title {
+  flex: 1;
+  text-align: center;
+}
+
+.pro-popup-body {
+  flex: 1;
+  overflow: auto;
+}
