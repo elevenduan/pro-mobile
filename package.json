@@ -1,6 +1,6 @@
 {
   "name": "@bigflower/pro-mobile",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publishConfig": {
     "access": "public"
   },
@@ -32,11 +32,11 @@
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0",
     "antd-mobile": "^5.42.3",
     "antd-mobile-icons": "^0.3.0",
-    "dayjs": "^1.11.21"
+    "dayjs": "^1.11.21",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
