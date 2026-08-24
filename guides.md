@@ -119,11 +119,11 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 多行文本输入框，默认显示 1 至 3 行并自动伸缩，默认占位提示为“请输入{标签}”。
 
-| 属性         | 类型                       | 说明                                                                  |
-| ------------ | -------------------------- | --------------------------------------------------------------------- |
-| `name`       | `NamePath`                 | 表单字段名。                                                          |
-| `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。                                                |
-| `fieldProps` | `TextAreaProps`            | 传给内部 `TextArea`，可设置 `maxLength`、`showCount`、`autoSize` 等。 |
+| 属性         | 类型                       | 默认值                        | 说明                                                                          |
+| ------------ | -------------------------- | ----------------------------- | ----------------------------------------------------------------------------- |
+| `name`       | `NamePath`                 | -                             | 表单字段名。                                                                  |
+| `itemProps`  | `Omit<FormItemProps, ...>` | -                             | 传给外层 `Form.Item`。                                                        |
+| `fieldProps` | `TextAreaProps`            | `rows: 1`，`autoSize: 1-3 行` | 传给内部 `TextArea`，可覆盖默认行数，并设置 `maxLength`、`showCount` 等属性。 |
 
 ```tsx
 <ProTextArea name="remark" label="备注" fieldProps={{ maxLength: 200, showCount: true }} />
@@ -170,13 +170,13 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 单选组，字段值为选中的 `string | number`。
 
-| 属性         | 类型                       | 说明                                              |
-| ------------ | -------------------------- | ------------------------------------------------- | -------------------------- |
-| `name`       | `NamePath`                 | 表单字段名。                                      |
-| `options`    | `ProRadioOption[]`         | 必填。每项包含 `label: ReactNode`、`value: string | number`、可选 `disabled`。 |
-| `fieldProps` | `RadioProps`               | 传给每一个 `Radio`。                              |
-| `spaceProps` | `SpaceProps`               | 传给选项布局容器。                                |
-| `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。                            |
+| 属性         | 类型                       | 说明                                                                            |
+| ------------ | -------------------------- | ------------------------------------------------------------------------------- |
+| `name`       | `NamePath`                 | 表单字段名。                                                                    |
+| `options`    | `ProRadioOption[]`         | 必填。每项包含 `label: ReactNode`、`value: string \| number`、可选 `disabled`。 |
+| `fieldProps` | `RadioProps`               | 传给每一个 `Radio`。                                                            |
+| `spaceProps` | `SpaceProps`               | 传给选项布局容器。                                                              |
+| `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。                                                          |
 
 ```tsx
 <ProRadio
@@ -194,13 +194,13 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 多选组，字段值为选中项组成的数组。
 
-| 属性         | 类型                       | 说明                                              |
-| ------------ | -------------------------- | ------------------------------------------------- | -------------------------- |
-| `name`       | `NamePath`                 | 表单字段名。                                      |
-| `options`    | `ProCheckboxOption[]`      | 必填。每项包含 `label: ReactNode`、`value: string | number`、可选 `disabled`。 |
-| `fieldProps` | `CheckboxProps`            | 传给每一个 `Checkbox`。                           |
-| `spaceProps` | `SpaceProps`               | 传给选项布局容器。                                |
-| `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。                            |
+| 属性         | 类型                       | 说明                                                                            |
+| ------------ | -------------------------- | ------------------------------------------------------------------------------- |
+| `name`       | `NamePath`                 | 表单字段名。                                                                    |
+| `options`    | `ProCheckboxOption[]`      | 必填。每项包含 `label: ReactNode`、`value: string \| number`、可选 `disabled`。 |
+| `fieldProps` | `CheckboxProps`            | 传给每一个 `Checkbox`。                                                         |
+| `spaceProps` | `SpaceProps`               | 传给选项布局容器。                                                              |
+| `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。                                                          |
 
 ```tsx
 <ProCheckbox
@@ -393,7 +393,7 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 | `title`       | `ReactNode`        | -        | 头部标题。                                          |
 | `confirmText` | `ReactNode`        | `"确定"` | 确认按钮文本。                                      |
 | `onConfirm`   | `() => void`       | -        | 确认回调。                                          |
-| `height`      | `string \| number` | -        | 弹层内容区域高度。                                  |
+| `height`      | `string \| number` | `300`    | 弹层内容区域高度。                                  |
 | `hideHeader`  | `boolean`          | -        | 是否隐藏默认头部。                                  |
 | 其余属性      | `PopupProps`       | -        | 例如 `visible`、`position`、`onClose`、`children`。 |
 
@@ -405,13 +405,13 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 ### ProIFrame
 
-在 `ProPopup` 中展示 iframe，弹层关闭时自动卸载 iframe 的有效高度。除 `children`、`afterShow`、`afterClose` 外，接受 `ProPopupProps`；组件会自行管理后两个生命周期属性。
+在 `ProPopup` 中展示 iframe，弹层关闭时会将 iframe 高度设为 `0`。未提供 `url` 时渲染 `children`；`afterShow` 与 `afterClose` 会在内部状态更新后继续执行。
 
-| 属性     | 类型                                                             | 说明                    |
-| -------- | ---------------------------------------------------------------- | ----------------------- |
-| `url`    | `string`                                                         | iframe 地址。           |
-| `footer` | `ReactNode`                                                      | iframe 下方的内容。     |
-| 其余属性 | `Omit<ProPopupProps, "children" \| "afterShow" \| "afterClose">` | `ProPopup` 的可用属性。 |
+| 属性     | 类型            | 说明                                      |
+| -------- | --------------- | ----------------------------------------- |
+| `url`    | `string`        | iframe 地址。未提供时渲染 `children`。    |
+| `footer` | `ReactNode`     | 内容区域下方的内容。                      |
+| 其余属性 | `ProPopupProps` | 包括 `children`、生命周期回调及弹层属性。 |
 
 ```tsx
 <ProIFrame visible={visible} url="https://example.com/terms" title="服务条款" height="80vh" onClose={() => setVisible(false)} />
@@ -434,8 +434,8 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 | 属性          | 类型                                                        | 默认值 | 说明                                                                             |
 | ------------- | ----------------------------------------------------------- | ------ | -------------------------------------------------------------------------------- |
-| `name`        | `NamePath`                                                  | -      | 表单字段名，值为 `ImageUploadItem[]`。                                           |
-| `apiUpload`   | `(file: File) => Promise<Partial<ImageUploadItem> \| null>` | -      | 上传函数。返回对象会与最终上传项合并。未返回 `url` 时使用本地对象 URL。          |
+| `name`        | `NamePath`                                                  | -      | 可选的表单字段名，值为 `ImageUploadItem[]`。                                     |
+| `apiUpload`   | `(file: File) => Promise<Partial<ImageUploadItem> \| null>` | -      | 可选上传函数。返回对象会与最终上传项合并。未返回 `url` 时使用本地对象 URL。      |
 | `maxFileSize` | `number`                                                    | `10`   | 单文件大小上限，单位 MB。                                                        |
 | `fieldProps`  | `Omit<ImageUploaderProps, "upload">`                        | -      | 传给内部 `ImageUploader`。可传 `accept`、`maxCount` 等；上传函数由组件统一管理。 |
 | `itemProps`   | `Omit<FormItemProps, ...>`                                  | -      | 传给外层 `Form.Item`。                                                           |
