@@ -5,8 +5,7 @@ import { Form, Grid, Checkbox } from "antd-mobile";
 import { FieldContext } from "rc-field-form";
 import dayjs from "dayjs";
 import { ProDatePicker } from "../ProDatePicker";
-import { merge } from "../utils";
-import { LONG_DATE, LONG_DATE_LABEL } from "../constants";
+import { LONG_DATE, LONG_DATE_LABEL, merge } from "@bigflower/utils";
 
 export type ProDateRangeProps = {
   props?: Omit<ProDatePickerProps, "required">[];

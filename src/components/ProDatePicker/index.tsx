@@ -5,7 +5,7 @@ import { useRef, useContext } from "react";
 import { DatePicker, Form, Space } from "antd-mobile";
 import { FieldContext } from "rc-field-form";
 import dayjs from "dayjs";
-import { MIN_DATE, MAX_DATE, DATE_FORMAT } from "../constants";
+import { MIN_DATE, MAX_DATE, DATE_FORMAT } from "@bigflower/utils";
 
 export type ProDatePickerProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;

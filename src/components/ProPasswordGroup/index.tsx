@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Form } from "antd-mobile";
 import { FieldContext } from "rc-field-form";
 import { ProPassword } from "../ProPassword";
-import { merge, isPassword } from "../utils";
+import { merge, isPassword } from "@bigflower/utils";
 
 export type ProPasswordGroupProps = {
   props?: ProPasswordProps[];

@@ -506,15 +506,17 @@ export function OrderList() {
 
 ## 公共类型、常量与工具
 
-入口还导出以下公共内容：
+入口导出以下公共类型：`NamePath`、`OptionValue`、`GeneralFormItemKey`。
 
-- 类型：`NamePath`、`OptionValue`、`GeneralFormItemKey`。
-- 常量命名空间：`constants`，包含日期格式、日期范围、长期日期及密码特殊字符常量。
-- 工具命名空间：`utils`，包含输入校验、密码校验、深度合并、数值格式化、脱敏、下载等工具。
+常量与工具已迁移至 `@bigflower/utils`，请直接从该包引入。它是本库的 peerDependency，安装本库时需一并安装。
+
+```bash
+pnpm add @bigflower/utils
+```
 
 ```tsx
-import { constants, utils } from "@bigflower/pro-mobile";
+import { DATE_FORMAT, isMobile } from "@bigflower/utils";
 
-const isValidPhone = utils.isMobile("13800138000");
-const formattedDate = constants.DATE_FORMAT;
+const isValidPhone = isMobile("13800138000");
+const formattedDate = DATE_FORMAT;
 ```

@@ -2,7 +2,7 @@ import type { FC } from "react";
 import type { FormItemProps, InputProps } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath } from "../types";
 import { Form, Input } from "antd-mobile";
-import * as utils from "../utils";
+import * as utils from "@bigflower/utils";
 
 export type ProInputProps = Pick<FormItemProps, GeneralFormItemKey> & {
   name?: NamePath;

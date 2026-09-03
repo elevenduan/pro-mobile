@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@bigflower/utils':
-        specifier: ^1.0.0
-        version: 1.0.0
       antd-mobile:
         specifier: ^5.42.3
         version: 5.42.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -24,6 +21,9 @@ importers:
       '@babel/core':
         specifier: ^7.29.7
         version: 7.29.7
+      '@bigflower/utils':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
         version: 0.2.3(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.6)(vite@8.2.2(@types/node@24.13.3))

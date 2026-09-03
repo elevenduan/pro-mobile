@@ -27,7 +27,7 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, /^antd-mobile(\/.*)?$/, /^antd-mobile-icons(\/.*)?$/, /^dayjs(\/.*)?$/, /^rc-field-form(\/.*)?$/],
+      external: [/^react(\/.*)?$/, /^react-dom(\/.*)?$/, /^antd-mobile(\/.*)?$/, /^antd-mobile-icons(\/.*)?$/, /^dayjs(\/.*)?$/, /^rc-field-form(\/.*)?$/, /^@bigflower\/utils(\/.*)?$/],
     },
   },
 });
