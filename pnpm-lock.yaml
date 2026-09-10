@@ -22,8 +22,8 @@ importers:
         specifier: ^7.29.7
         version: 7.29.7
       '@bigflower/utils':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
         version: 0.2.3(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.6)(vite@8.2.2(@types/node@24.13.3))
@@ -205,8 +205,8 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@bigflower/utils@1.0.0':
-    resolution: {integrity: sha512-k0N80CHzwlOlAfgy20rALAKDqqCVXNzjZttCVkphjk+qqSHiDTB6MqrWOcabNb9DbMUJyZg8K1dk/ti+LXIhOg==}
+  '@bigflower/utils@1.1.0':
+    resolution: {integrity: sha512-F1RXSBbCu7JYUTitcbkh4UbZpM6qzP0tbNaXKNMUI3GtqYjvikQe3qU6+iB5tLStSJyS9HvVPitrUpQHXH5CPQ==}
 
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
@@ -667,6 +667,9 @@ packages:
       picomatch:
         optional: true
 
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -1113,7 +1116,9 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bigflower/utils@1.0.0': {}
+  '@bigflower/utils@1.1.0':
+    dependencies:
+      fflate: 0.8.3
 
   '@floating-ui/core@1.8.0':
     dependencies:
@@ -1450,6 +1455,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
+
+  fflate@0.8.3: {}
 
   fsevents@2.3.3:
     optional: true

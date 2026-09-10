@@ -59,6 +59,7 @@ function App() {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [params, setParams] = useState({ current: 1, size: 10 });
+  const [file, setFile] = useState<File>();
 
   useEffect(() => {
     console.log("App mounted");
@@ -112,14 +113,23 @@ function App() {
         <Form.Item label="图片" name="image" layout="horizontal" childElementPosition="right">
           <ProImage src="file" />
         </Form.Item>
-        <ProUploader label="上传" name="uploader" required />
+        <ProUploader
+          label="上传"
+          name="uploader"
+          required
+          fieldProps={{ accept: ".pdf,.docx" }}
+          apiUpload={async (file) => {
+            setFile(file);
+            return null;
+          }}
+        />
       </Form>
 
       <Button onClick={() => setVisible1(true)}>弹窗1</Button>
       <ProPopup visible={visible1} onClose={() => setVisible1(false)} title="标题"></ProPopup>
 
       <Button onClick={() => setVisible2(true)}>弹窗2</Button>
-      <ProIFrame visible={visible2} onClose={() => setVisible2(false)} title="服务协议" url="" height="80vh" />
+      <ProIFrame visible={visible2} onClose={() => setVisible2(false)} title="服务协议" url="http://localhost:5174/" file={file} height="80vh" />
     </div>
   );
 }

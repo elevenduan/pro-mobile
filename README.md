@@ -424,19 +424,35 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 ### ProIFrame
 
-在 `ProPopup` 中展示 iframe，弹层关闭时会将 iframe 高度设为 `0`。未提供 `url` 时渲染 `children`；`afterShow` 与 `afterClose` 会在内部状态更新后继续执行。
+在 `ProPopup` 中展示 iframe。未提供 `url` 时渲染 `children`。默认 `cancelText` 为空、`confirmText` 为 `"关闭"`，并始终开启 `destroyOnClose`。`afterShow` 与 `afterClose` 会在内部状态更新后继续执行。
 
-| 属性     | 类型            | 说明                                      |
-| -------- | --------------- | ----------------------------------------- |
-| `url`    | `string`        | iframe 地址。未提供时渲染 `children`。    |
-| `footer` | `ReactNode`     | 内容区域下方的内容。                      |
-| 其余属性 | `ProPopupProps` | 包括 `children`、生命周期回调及弹层属性。 |
+传入 `file` 后，组件会监听同源 iframe 发出的 `file-viewer:ready` 消息，再通过 `postMessage` 把 `File` 回传给 iframe。iframe 侧需要先通知就绪，再接收文件：
+
+```ts
+window.parent.postMessage({ type: "file-viewer:ready" }, "*");
+
+window.addEventListener("message", (event) => {
+  const file = event.data?.file as File | undefined;
+  if (file) {
+    // 预览 file
+  }
+});
+```
+
+| 属性     | 类型            | 默认值  | 说明                                                                                         |
+| -------- | --------------- | ------- | -------------------------------------------------------------------------------------------- |
+| `url`    | `string`        | -       | iframe 地址。未提供时渲染 `children`。                                                       |
+| `file`   | `File`          | -       | 可选。收到 iframe 的 `file-viewer:ready` 后，通过 `postMessage` 把该文件发给 iframe。        |
+| `footer` | `ReactNode`     | -       | 内容区域下方的内容。                                                                         |
+| `resize` | `boolean`       | `false` | 兼容 iOS iframe 高度计算导致无法滚动的问题。开启后，iframe 初始高度为 `0`，`afterShow` 后再设为 `100%`，`afterClose` 再收为 `0`。 |
+| 其余属性 | `ProPopupProps` | -       | 包括 `children`、生命周期回调及弹层属性。                                                    |
 
 ```tsx
 <ProIFrame
   visible={visible}
-  url="https://example.com/terms"
-  title="服务条款"
+  url="https://example.com/file-viewer"
+  file={file}
+  title="文件预览"
   height="80vh"
   onClose={() => setVisible(false)}
 />

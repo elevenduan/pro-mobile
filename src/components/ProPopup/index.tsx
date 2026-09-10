@@ -25,17 +25,13 @@ export const ProPopup: FC<ProPopupProps> = (props) => {
       <div className="pro-popup-content" style={{ height }}>
         {!hideHeader && (
           <div className="pro-popup-header">
-            {cancelText ? (
-              <a className="pro-popup-header-button" onClick={onClose}>
-                {cancelText}
-              </a>
-            ) : null}
+            <div className="pro-popup-header-side">
+              <a onClick={onClose}>{cancelText}</a>
+            </div>
             <div className="pro-popup-header-title">{title}</div>
-            {confirmText ? (
-              <a className="pro-popup-header-button" onClick={handleConfirm}>
-                {confirmText}
-              </a>
-            ) : null}
+            <div className="pro-popup-header-side">
+              <a onClick={handleConfirm}>{confirmText}</a>
+            </div>
           </div>
         )}
         <div className="pro-popup-body">{children}</div>

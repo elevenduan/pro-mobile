@@ -63,11 +63,9 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
         onConfirm={() => handleConfirm(tempValue)}
         title={
           <Space block justify="between" align="center">
-            <a onClick={handleClear} style={{ padding: "8px 0" }}>
-              清除
-            </a>
+            <a onClick={handleClear}>清除</a>
             <div>{title}</div>
-            {multiple ? <a onClick={handleSelectAll}>全选</a> : <span>&emsp;&emsp;</span>}
+            {multiple ? <a onClick={handleSelectAll}>全选</a> : <div style={{ width: "2em" }}></div>}
           </Space>
         }
       >

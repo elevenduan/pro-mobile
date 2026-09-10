@@ -9,6 +9,8 @@
 }
 
 .pro-popup-header {
+  --pro-popup-header-side-width: 2em;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,8 +18,13 @@
   font-size: var(--adm-font-size-7);
 }
 
-.pro-popup-header-button {
+.pro-popup-header-side {
+  width: var(--pro-popup-header-side-width);
   padding: 12px;
+
+  &:last-child {
+    text-align: right;
+  }
 }
 
 .pro-popup-header-title {
