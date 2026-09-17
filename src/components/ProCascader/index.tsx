@@ -24,17 +24,29 @@ export const ProCascader: FC<ProCascaderProps> = (props) => {
   const onClear = async () => {
     cascaderRef.current?.close();
     formIns?.setFieldValue(fullName, []);
-    await formIns?.validateFields([fullName]);
+    await formIns?.validateFields([fullName])?.catch(() => {});
+  };
+  const separator = " / ";
+  const childrenRender: CascaderProps["children"] = (items) => {
+    if (!watchValue?.length) {
+      return <span style={{ color: "var(--adm-color-light)" }}>{placeholder || message}</span>;
+    }
+
+    const valuesLabel = watchValue
+      ?.map((value: string | number, index: number) => items?.[index]?.label ?? value)
+      ?.flatMap((item: string | number, index: number) => (index === 0 ? [item] : [separator, item]));
+
+    return valuesLabel;
   };
 
   return (
     <Form.Item
-      {...rest}
       validateFirst
       clickable={false}
       getValueFromEvent={(val, ext) => (ext?.isLeaf ? val : watchValue || [])}
-      {...itemProps}
       trigger="onConfirm"
+      {...rest}
+      {...itemProps}
       onClick={(e, ref) => {
         ref.current?.open();
         cascaderRef.current = ref.current;
@@ -43,13 +55,7 @@ export const ProCascader: FC<ProCascaderProps> = (props) => {
       rules={[{ required, message }, ...(rest?.rules || [])]}
     >
       <Cascader
-        children={(items) =>
-          items
-            ?.map((item) => item?.label)
-            .filter(Boolean)
-            .join(" / ") ||
-          watchValue?.join(" / ") || <span style={{ color: "var(--adm-color-light)" }}>{placeholder || message}</span>
-        }
+        children={childrenRender}
         options={options}
         {...fieldProps}
         title={

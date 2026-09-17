@@ -50,6 +50,7 @@ const citys = [
           { label: "余杭区", value: "余杭区", disabled: true },
         ],
       },
+      { label: "宁波", value: "宁波" },
     ],
   },
 ];

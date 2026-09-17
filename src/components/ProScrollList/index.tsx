@@ -67,12 +67,14 @@ export const ProScrollList: FC<ProScrollListProps> = (props) => {
       skip.current = false;
       return;
     }
-    fetchData(params);
+    void fetchData(params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
   useEffect(() => {
     if (!refresh || refresh <= 0) return;
-    onRefresh();
+    void onRefresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
   return (

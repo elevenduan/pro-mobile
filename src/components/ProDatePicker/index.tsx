@@ -25,7 +25,7 @@ export const ProDatePicker: FC<ProDatePickerProps> = (props) => {
   const onClear = async () => {
     pickerRef.current?.close();
     formIns?.setFieldValue(fullName, null);
-    await formIns?.validateFields([fullName]);
+    await formIns?.validateFields([fullName])?.catch(() => {});
   };
 
   return (

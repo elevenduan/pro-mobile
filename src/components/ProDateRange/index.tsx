@@ -65,7 +65,7 @@ export const ProDateRange: FC<ProDateRangeProps> = (props) => {
                   prevEndVal.current = watchEnd || null;
                 }
                 formIns?.setFieldValue(endName, val ? LONG_DATE : prevEndVal.current);
-                await formIns?.validateFields([endName]);
+                await formIns?.validateFields([endName])?.catch(() => {});
               }}
               style={{ justifyContent: "flex-end", padding: "12px 0" }}
             >

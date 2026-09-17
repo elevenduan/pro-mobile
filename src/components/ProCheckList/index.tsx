@@ -15,7 +15,7 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
   const [visible, setVisible] = useState(false);
   const [tempValue, setTempValue] = useState<OptionValue[]>([]);
   const allValues = options.filter((o) => !o.disabled).map((o) => o.value);
-  const selectedLabels = options.filter((o) => value.includes(o.value)).map((o) => o.label) as string[];
+  const selectedLabels = options.filter((o) => value.includes(o.value)).map((o) => o.label);
 
   const onClose = () => {
     setVisible(false);
@@ -52,7 +52,7 @@ const CheckListInput = forwardRef<{ open: () => void }, CheckListInputProps>((pr
         showCount ? (
           `已选择 ${selectedLabels.length} 个`
         ) : (
-          <span>{selectedLabels.join("、")}</span>
+          selectedLabels.flatMap((item, index) => (index === 0 ? [item] : ["、", item]))
         )
       ) : (
         <span style={{ color: "var(--adm-color-light)" }}>{placeholder}</span>

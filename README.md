@@ -126,11 +126,7 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 | `fieldProps` | `TextAreaProps`            | `rows: 1`，`autoSize: 1-3 行` | 传给内部 `TextArea`，可覆盖默认行数，并设置 `maxLength`、`showCount` 等属性。 |
 
 ```tsx
-<ProTextArea
-  name="remark"
-  label="备注"
-  fieldProps={{ maxLength: 200, showCount: true }}
-/>
+<ProTextArea name="remark" label="备注" fieldProps={{ maxLength: 200, showCount: true }} />
 ```
 
 ### ProPassword
@@ -228,11 +224,7 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 | `itemProps`  | `Omit<FormItemProps, ...>` | 传给外层 `Form.Item`。   |
 
 ```tsx
-<ProSwitch
-  name="enabled"
-  label="启用通知"
-  fieldProps={{ defaultChecked: true }}
-/>
+<ProSwitch name="enabled" label="启用通知" fieldProps={{ defaultChecked: true }} />
 ```
 
 ### ProSelector
@@ -292,17 +284,17 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 ### ProPicker
 
-多列滚轮选择器。确认后字段值为所选值数组；未选择时显示 `placeholder` 或“请选择{标签}”。
+多列滚轮选择器。确认后字段值为所选值数组；未选择时显示 `placeholder` 或“请选择{标签}”。支持清除已选值和按关键词筛选所有列。
 
-| 属性              | 类型                           | 默认值 | 说明                                                             |
-| ----------------- | ------------------------------ | ------ | ---------------------------------------------------------------- |
-| `name`            | `NamePath`                     | -      | 表单字段名。                                                     |
-| `columns`         | `ProPickerOption[][]`          | -      | 必填。每列为 `{ label: ReactNode; value: string \| number }[]`。 |
-| `placeholder`     | `string`                       | -      | 未选择时的提示。                                                 |
-| `showSearch`      | `boolean`                      | -      | 在第一列启用关键词筛选。                                         |
-| `allowSearchWord` | `boolean`                      | -      | 启用搜索时，允许将未匹配的关键词作为第一列值提交。               |
-| `fieldProps`      | `Omit<PickerProps, "columns">` | -      | 其余 `Picker` 属性。                                             |
-| `itemProps`       | `Omit<FormItemProps, ...>`     | -      | 传给外层 `Form.Item`。                                           |
+| 属性              | 类型                           | 默认值 | 说明                                                                 |
+| ----------------- | ------------------------------ | ------ | -------------------------------------------------------------------- |
+| `name`            | `NamePath`                     | -      | 表单字段名。                                                         |
+| `columns`         | `ProPickerOption[][]`          | -      | 必填。每列为 `{ label: ReactNode; value: string \| number }[]`。     |
+| `placeholder`     | `string`                       | -      | 未选择时的提示。                                                     |
+| `showSearch`      | `boolean`                      | -      | 在选择弹窗中启用关键词筛选，关键词会应用到所有列。                   |
+| `allowSearchWord` | `boolean`                      | -      | 启用搜索时，某列没有匹配项且关键词非空，允许将关键词作为该列值提交。 |
+| `fieldProps`      | `Omit<PickerProps, "columns">` | -      | 其余 `Picker` 属性。                                                 |
+| `itemProps`       | `Omit<FormItemProps, ...>`     | -      | 传给外层 `Form.Item`。                                               |
 
 ```tsx
 <ProPicker
@@ -362,12 +354,7 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 | `itemProps`    | `Omit<FormItemProps, ...>` | -              | 传给外层 `Form.Item`。                        |
 
 ```tsx
-<ProDatePicker
-  name="effectiveDate"
-  label="生效日期"
-  required
-  fieldProps={{ min: new Date(), precision: "day" }}
-/>
+<ProDatePicker name="effectiveDate" label="生效日期" required fieldProps={{ min: new Date(), precision: "day" }} />
 ```
 
 ### ProDateRange
@@ -411,13 +398,7 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 | 其余属性      | `PopupProps`       | -        | 例如 `visible`、`position`、`onClose`、`children`。 |
 
 ```tsx
-<ProPopup
-  visible={visible}
-  title="筛选"
-  height="60vh"
-  onClose={() => setVisible(false)}
-  onConfirm={() => submitFilter()}
->
+<ProPopup visible={visible} title="筛选" height="60vh" onClose={() => setVisible(false)} onConfirm={() => submitFilter()}>
   <div>筛选内容</div>
 </ProPopup>
 ```
@@ -439,23 +420,16 @@ window.addEventListener("message", (event) => {
 });
 ```
 
-| 属性     | 类型            | 默认值  | 说明                                                                                         |
-| -------- | --------------- | ------- | -------------------------------------------------------------------------------------------- |
-| `url`    | `string`        | -       | iframe 地址。未提供时渲染 `children`。                                                       |
-| `file`   | `File`          | -       | 可选。收到 iframe 的 `file-viewer:ready` 后，通过 `postMessage` 把该文件发给 iframe。        |
-| `footer` | `ReactNode`     | -       | 内容区域下方的内容。                                                                         |
+| 属性     | 类型            | 默认值  | 说明                                                                                                                              |
+| -------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `url`    | `string`        | -       | iframe 地址。未提供时渲染 `children`。                                                                                            |
+| `file`   | `File`          | -       | 可选。收到 iframe 的 `file-viewer:ready` 后，通过 `postMessage` 把该文件发给 iframe。                                             |
+| `footer` | `ReactNode`     | -       | 内容区域下方的内容。                                                                                                              |
 | `resize` | `boolean`       | `false` | 兼容 iOS iframe 高度计算导致无法滚动的问题。开启后，iframe 初始高度为 `0`，`afterShow` 后再设为 `100%`，`afterClose` 再收为 `0`。 |
-| 其余属性 | `ProPopupProps` | -       | 包括 `children`、生命周期回调及弹层属性。                                                    |
+| 其余属性 | `ProPopupProps` | -       | 包括 `children`、生命周期回调及弹层属性。                                                                                         |
 
 ```tsx
-<ProIFrame
-  visible={visible}
-  url="https://example.com/file-viewer"
-  file={file}
-  title="文件预览"
-  height="80vh"
-  onClose={() => setVisible(false)}
-/>
+<ProIFrame visible={visible} url="https://example.com/file-viewer" file={file} title="文件预览" height="80vh" onClose={() => setVisible(false)} />
 ```
 
 ### ProImage
@@ -532,11 +506,7 @@ export function OrderList() {
   const [params, setParams] = useState({ current: 1, size: 20 });
 
   return (
-    <ProScrollList
-      api={(query) => getOrders(query)}
-      params={params}
-      setParams={setParams}
-    >
+    <ProScrollList api={(query) => getOrders(query)} params={params} setParams={setParams}>
       {(orders) => (
         <List>
           {orders.map((order) => (
