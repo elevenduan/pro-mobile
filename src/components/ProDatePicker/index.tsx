@@ -2,7 +2,7 @@ import type { FC } from "react";
 import type { DatePickerProps, FormItemProps, PickerRef } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath } from "../types";
 import { useRef, useContext } from "react";
-import { DatePicker, Form, Space } from "antd-mobile";
+import { DatePicker, Form } from "antd-mobile";
 import { FieldContext } from "rc-field-form";
 import dayjs from "dayjs";
 import { MIN_DATE, MAX_DATE, DATE_FORMAT } from "@bigflower/utils";
@@ -48,13 +48,12 @@ export const ProDatePicker: FC<ProDatePickerProps> = (props) => {
         children={(value) => (value ? dayjs(value).format(formatString) : <span style={{ color: "var(--adm-color-light)" }}>{placeholder || message}</span>)}
         {...fieldProps}
         title={
-          <Space block justify="between" align="center">
-            <a onClick={onClear} style={{ padding: "8px 0" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <a onClick={onClear} style={{ padding: "4px 0" }}>
               清除
             </a>
-            <span>{fieldProps?.title || message}</span>
-            <span>&emsp;&emsp;</span>
-          </Space>
+            <div style={{ flex: 1, marginRight: "2em" }}>{fieldProps?.title || message}</div>
+          </div>
         }
       />
     </Form.Item>

@@ -108,7 +108,7 @@ function App() {
           }
         </Form.Array>
         <ProPicker label="性别" name="picker" required columns={[options]} showSearch allowSearchWord />
-        <ProCheckList label="爱好" name="hobby" required options={options} multiple />
+        <ProCheckList label="爱好" name="hobby" required options={options} multiple showSearch />
         <ProSwitch label="开关" name="switch" required layout="horizontal" />
         <ProCascader label="城市" name="cascader" required options={citys} />
         <Form.Item label="图片" name="image" layout="horizontal" childElementPosition="right">

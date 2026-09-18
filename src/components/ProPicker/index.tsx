@@ -31,6 +31,10 @@ export const ProPicker: FC<ProPickerProps> = (props) => {
   const messageLabel = (rest?.messageVariables?.label || rest?.label || "") as string;
   const message = `请选择${messageLabel}`;
   const filtered = columns?.map((col) => col.filter((option) => JSON.stringify(option.label)?.includes(keyword)));
+  const onClose = () => {
+    setKeyword("");
+    fieldProps?.onClose?.();
+  };
   const onClear = async () => {
     pickerRef.current?.close();
     formIns?.setFieldValue(fullName, []);
@@ -69,15 +73,16 @@ export const ProPicker: FC<ProPickerProps> = (props) => {
         children={childrenRender}
         columns={showSearch ? filtered : columns}
         {...fieldProps}
+        onClose={onClose}
         title={
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a onClick={onClear} style={{ padding: "8px 0" }}>
+            <a onClick={onClear} style={{ padding: "4px 0" }}>
               清除
             </a>
             {showSearch ? (
-              <SearchBar value={keyword} onChange={setKeyword} placeholder="请输入关键字" style={{ flexGrow: 1, marginLeft: 12 }} />
+              <SearchBar value={keyword} onChange={setKeyword} placeholder="请输入关键字" style={{ flex: 1, marginLeft: 12 }} />
             ) : (
-              <div style={{ flexGrow: 1, paddingRight: "2em" }}>{fieldProps?.title || message}</div>
+              <div style={{ flex: 1, marginRight: "2em" }}>{fieldProps?.title || message}</div>
             )}
           </div>
         }

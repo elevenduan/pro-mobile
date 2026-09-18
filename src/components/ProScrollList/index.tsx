@@ -38,13 +38,16 @@ export const ProScrollList: FC<ProScrollListProps> = (props) => {
 
   async function fetchData(ops: any) {
     if (condition && !condition()) return;
-    await api(ops).then((resp: any) => {
+    try {
+      const resp = await api(ops);
       const res = (nameRes ? resp[nameRes] : resp) || {};
       const data = res[nameData] || [];
       setHasMore(ops[nameCurrent] < res[namePages] || ops[nameCurrent] * ops[nameSize] < res[nameTotal]);
       setList(!ops[nameCurrent] || ops[nameCurrent] === 1 ? data : [...(list || []), ...data]);
       getRes?.(resp);
-    });
+    } catch {
+      // 请求错误由调用方或全局拦截器提示，用户可自行重新触发加载。
+    }
   }
 
   async function handleCurrent(cur: number) {

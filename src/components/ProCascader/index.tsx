@@ -2,7 +2,7 @@ import type { FC } from "react";
 import type { CascaderOption, CascaderProps, CascaderRef, FormItemProps } from "antd-mobile";
 import type { GeneralFormItemKey, NamePath } from "../types";
 import { useContext, useRef } from "react";
-import { Cascader, Form, Space } from "antd-mobile";
+import { Cascader, Form } from "antd-mobile";
 import { FieldContext } from "rc-field-form";
 
 export type ProCascaderProps = Pick<FormItemProps, GeneralFormItemKey> & {
@@ -59,13 +59,12 @@ export const ProCascader: FC<ProCascaderProps> = (props) => {
         options={options}
         {...fieldProps}
         title={
-          <Space block justify="between" align="center">
-            <a onClick={onClear} style={{ padding: "8px 0" }}>
+          <div style={{ display: "flex", alignItems: "center", padding: "0 4px" }}>
+            <a onClick={onClear} style={{ padding: "2px 0" }}>
               清除
             </a>
-            <span>{fieldProps?.title || message}</span>
-            <span>&emsp;&emsp;</span>
-          </Space>
+            <div style={{ flex: 1, marginRight: "2em" }}>{fieldProps?.title || message}</div>
+          </div>
         }
       />
     </Form.Item>

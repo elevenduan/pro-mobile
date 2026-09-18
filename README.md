@@ -257,16 +257,18 @@ import { ProEmpty } from "@bigflower/pro-mobile";
 
 点击表单项后在底部弹层中展示 `CheckList`。支持清除，开启多选时还支持“全选”。值为 `OptionValue[]`。
 
-| 属性          | 类型                                                        | 说明                                                                                 |
-| ------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `name`        | `NamePath`                                                  | 表单字段名。                                                                         |
-| `options`     | `ProCheckListOption[]`                                      | 必填。每项含 `label`、`value`，并支持 `disabled`、`title`、`description`、`prefix`。 |
-| `multiple`    | `boolean`                                                   | 是否多选。                                                                           |
-| `showCount`   | `boolean`                                                   | 是否以“已选择 N 个”代替所选标签。                                                    |
-| `title`       | `ReactNode`                                                 | 弹层标题，默认“请选择{标签}”。                                                       |
-| `placeholder` | `string`                                                    | 未选择时的占位文本，默认“请选择{标签}”。                                             |
-| `fieldProps`  | `Omit<CheckListProps, "multiple" \| "onChange" \| "value">` | 传给内部 `CheckList`。                                                               |
-| `itemProps`   | `Omit<FormItemProps, ...>`                                  | 传给外层 `Form.Item`。                                                               |
+| 属性              | 类型                                                        | 说明                                                                                 |
+| ----------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `name`            | `NamePath`                                                  | 表单字段名。                                                                         |
+| `options`         | `ProCheckListOption[]`                                      | 必填。每项含 `label`、`value`，并支持 `disabled`、`title`、`description`、`prefix`。 |
+| `multiple`        | `boolean`                                                   | 是否多选。                                                                           |
+| `showCount`       | `boolean`                                                   | 是否以“已选择 N 个”代替所选标签。                                                    |
+| `title`           | `ReactNode`                                                 | 弹层标题，默认“请选择{标签}”。                                                       |
+| `placeholder`     | `string`                                                    | 未选择时的占位文本，默认“请选择{标签}”。                                             |
+| `showSearch`      | `boolean`                                                   | 在选择弹窗中启用关键词筛选；筛选只影响可见项，不会丢失已选项。                       |
+| `allowSearchWord` | `boolean`                                                   | 关键词无匹配项且未选择任何项时，允许将非空关键词作为值提交。                         |
+| `fieldProps`      | `Omit<CheckListProps, "multiple" \| "onChange" \| "value">` | 传给内部 `CheckList`。                                                               |
+| `itemProps`       | `Omit<FormItemProps, ...>`                                  | 传给外层 `Form.Item`。                                                               |
 
 ```tsx
 <ProCheckList
